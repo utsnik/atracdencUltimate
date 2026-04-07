@@ -158,6 +158,27 @@ EncodeFrame(const float* data, int channels)
         }
 
         Mdct.Do(c.Specs.data(), p, c.MdctBuf, sces[ch].SubbandInfo.Win);
+        
+        // Spectral Suppression: Zero out bins modeled by GHA tonal components
+        if (tonalBlock && Settings.UseGha) {
+            for (uint8_t sb = 0; sb < tonalBlock->NumToneBands; sb++) {
+                auto waves = tonalBlock->GetWaves(ch, sb);
+                for (size_t i = 0; i < waves.second; i++) {
+                    const auto& wave = waves.first[i];
+                    // GHA Frequency Index (14-bit): [Subband:4][Index:10]
+                    // Map 10-bit resolution (0-1023) to 128 coefficients (0-127)
+                    uint32_t binIdx = (wave.FreqIndex & 1023) / 8;
+                    uint32_t specIdx = (uint32_t)sb * 128 + binIdx;
+                    
+                    if (specIdx < 2048) {
+                        c.Specs[specIdx] = 0.0f;
+                        // Zero out immediate neighbors to account for spectral leakage
+                        if (binIdx > 0) c.Specs[specIdx - 1] = 0.0f;
+                        if (binIdx < 127) c.Specs[specIdx + 1] = 0.0f;
+                    }
+                }
+            }
+        }
 
         sces[ch].ScaledBlocks = Scaler.ScaleFrame(c.Specs, NAt3p::TScaleTable::TBlockSizeMod());
     }
@@ -248,11 +269,6 @@ void TAt3PEnc::ParseAdvancedOpt(const char* opt, TSettings& settings) {
                 vState = true;
                 opt++;
                 start = opt;
-            } else if (!*opt) {
-                throw std::runtime_error("unexpected end of key token");
-//                if (opt - start > 0) {
-//                }
-//                opt = nullptr;
             } else {
                 opt++;
             }
