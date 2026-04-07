@@ -29,6 +29,8 @@
 #include <cassert>
 #include <vector>
 #include <unordered_map>
+#include <cstdlib>
+#include <string>
 
 using std::vector;
 
@@ -36,8 +38,8 @@ namespace NAtracDEnc {
 
 class TAt3PEnc::TImpl {
 public:
-    TImpl(ICompressedOutput* out, int channels, TSettings settings)
-        : BitStream(out, 2048)
+    TImpl(ICompressedOutput* out, int channels, uint16_t frameSize, TSettings settings)
+        : BitStream(out, frameSize)
         , ChannelCtx(channels)
         , GhaProcessor(MakeGhaProcessor0(channels == 2))
         , Settings(settings)
@@ -115,7 +117,10 @@ EncodeFrame(const float* data, int channels)
         p = &delay;
     }
 
-    const TAt3PGhaData* tonalBlock = GhaProcessor->DoAnalize({b1Cur, b1Next}, {b2Cur, b2Next}, b1Prev, b2Prev);
+    const TAt3PGhaData* tonalBlock = nullptr;
+    if (Settings.UseGha) {
+        tonalBlock = GhaProcessor->DoAnalize({b1Cur, b1Next}, {b2Cur, b2Next}, b1Prev, b2Prev);
+    }
 
     std::vector<TAt3PBitStream::TSingleChannelElement> sces;
     sces.resize(channels);
@@ -125,10 +130,23 @@ EncodeFrame(const float* data, int channels)
         TAt3pMDCT::TPcmBandsData p;
         float tmp[2048];
         //TODO: scale window
-        if (Settings.UseGha & TSettings::GHA_WRITE_RESIUDAL) {
+        bool passInput = (Settings.UseGha == 0) || (Settings.UseGha & TSettings::GHA_PASS_INPUT);
+        const char* forcePass = std::getenv("ATRACDENC_FORCE_PASS_INPUT");
+        if (forcePass && *forcePass && *forcePass != '0') {
+            passInput = true;
+        }
+        float mdctGain = 1.0f;
+        if (const char* gainEnv = std::getenv("ATRACDENC_MDCT_GAIN")) {
+            char* endp = nullptr;
+            const float g = std::strtof(gainEnv, &endp);
+            if (endp != gainEnv && g > 0.0f) {
+                mdctGain = g;
+            }
+        }
+        if (passInput) {
             for (size_t i = 0; i < 2048; i++) {
-                //TODO: find why we need to add the 0.5db
-                tmp[i] = x[i] / (32768.0 / 1.122018);
+                // Input PCM is already normalized to [-1, 1]
+                tmp[i] = x[i] * mdctGain;
             }
         } else {
             for (size_t i = 0; i < 2048; i++) {
@@ -144,10 +162,15 @@ EncodeFrame(const float* data, int channels)
         sces[ch].ScaledBlocks = Scaler.ScaleFrame(c.Specs, NAt3p::TScaleTable::TBlockSizeMod());
     }
 
-    BitStream.WriteFrame(channels, p, sces);
+    const TAt3PGhaData* tonesToWrite = nullptr;
+    if (Settings.UseGha & TSettings::GHA_WRITE_TONAL) {
+        tonesToWrite = tonalBlock;
+    }
+    BitStream.WriteFrame(channels, tonesToWrite, sces);
 
     for (int ch = 0; ch < channels; ch++) {
-        if (Settings.UseGha & TSettings::GHA_PASS_INPUT) {
+        bool passInput = (Settings.UseGha == 0) || (Settings.UseGha & TSettings::GHA_PASS_INPUT);
+        if (passInput) {
             memcpy(ChannelCtx[ch].PrevBuf, ChannelCtx[ch].CurBuf, sizeof(float) * TAt3PEnc::NumSamples);
         } else {
             memset(ChannelCtx[ch].PrevBuf, 0, sizeof(float) * TAt3PEnc::NumSamples);
@@ -163,10 +186,10 @@ EncodeFrame(const float* data, int channels)
     return TPCMEngine::EProcessResult::PROCESSED;
 }
 
-TAt3PEnc::TAt3PEnc(TCompressedOutputPtr&& out, int channels, TSettings settings)
+TAt3PEnc::TAt3PEnc(TCompressedOutputPtr&& out, int channels, uint16_t frameSize, TSettings settings)
     : Out(std::move(out))
     , Channels(channels)
-    , Impl(new TImpl(Out.get(), Channels, settings))
+    , Impl(new TImpl(Out.get(), Channels, frameSize, settings))
 {
 }
 

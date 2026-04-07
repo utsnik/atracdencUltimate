@@ -256,6 +256,7 @@ static void PrepareAtrac3PEncoder(const string& inFile,
                                   const string& outFile,
                                   const bool noStdOut,
                                   int numChannels,
+                                  int bitrate,
                                   uint64_t* totalSamples,
                                   const TWavPtr& wavIO,
                                   TPcmEnginePtr* pcmEngine,
@@ -271,6 +272,8 @@ static void PrepareAtrac3PEncoder(const string& inFile,
 
     const string ext = GetFileExt(outFile);
 
+    const uint32_t frameSize = (bitrate * 1024 * 2048 / 44100 / 8 + 7) & ~7; // 8-byte aligned
+
     TCompressedOutputPtr omaIO;
 
     string contName;
@@ -284,9 +287,18 @@ static void PrepareAtrac3PEncoder(const string& inFile,
             "test",
             numChannels,
             (int32_t)numFrames, OMAC_ID_ATRAC3PLUS,
-            2048,
+            frameSize,
             false));
     }
+
+    TAt3PEnc::TSettings settings;
+    if (advancedOpt) {
+        TAt3PEnc::ParseAdvancedOpt(advancedOpt, settings);
+    }
+    pcmEngine->reset(new TPCMEngine(4096,
+                                    numChannels,
+                                    TPCMEngine::TReaderPtr(wavIO->GetPCMReader())));
+    atracProcessor->reset(new TAt3PEnc(std::move(omaIO), numChannels, frameSize, settings));
 
     if (!noStdOut)
         cout << "Input:\n Filename: " << inFile
@@ -299,14 +311,6 @@ static void PrepareAtrac3PEncoder(const string& inFile,
              //<< "\n Bitrate: " << encoderSettings.ConteinerParams->Bitrate
              << endl;
 
-    pcmEngine->reset(new TPCMEngine(4096,
-                                            numChannels,
-                                            TPCMEngine::TReaderPtr(wavIO->GetPCMReader())));
-    TAt3PEnc::TSettings settings;
-    if (advancedOpt) {
-        TAt3PEnc::ParseAdvancedOpt(advancedOpt, settings);
-    }
-    atracProcessor->reset(new TAt3PEnc(std::move(omaIO), numChannels, settings));
 }
 
 
@@ -477,7 +481,7 @@ int main_(int argc, char* const* argv)
             {
                 wavIO = OpenWavFile(inFile);
                 PrepareAtrac3PEncoder(inFile, outFile, noStdOut, wavIO->GetChannelNum(),
-                    &totalSamples, wavIO, &pcmEngine, &atracProcessor, advancedOpt);
+                    bitrate, &totalSamples, wavIO, &pcmEngine, &atracProcessor, advancedOpt);
                 pcmFrameSz = 2048;
             }
             break;
@@ -495,6 +499,7 @@ int main_(int argc, char* const* argv)
 
     uint64_t processed = 0;
     try {
+        printf("Entering process loop...\n");
         while (totalSamples > (processed = pcmEngine->ApplyProcess(pcmFrameSz, atracLambda)))
         {
             if (!noStdOut)

@@ -113,7 +113,7 @@ at3plus_pqf_a_ctx_t at3plus_pqf_create_a_ctx()
         ctx->buf[i] = 0.0;
     }
 
-    ctx->dct_ctx = atde_create_dct4_16(128 * 512.0);
+    ctx->dct_ctx = atde_create_dct4_16(1.0);
 
     init();
 

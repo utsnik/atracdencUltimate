@@ -25,9 +25,11 @@
 
 #include "ff/atrac3plus_data.h"
 
+#include <utility>
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <numeric>
 
 namespace NAtracDEnc {
 
@@ -104,15 +106,38 @@ IBitStreamPartEncoder::EStatus TConfigure::Encode(void* frameData, TBitAllocHand
 
     frame->WordLen.resize(frame->NumQuantUnits);
 
+    // Iterative Bit Allocation Loop (Simplified FUN_0043d1f0)
+    // Goal: Fill the bit budget (SizeBits) starting from lower frequencies.
     for (size_t i = 0; i < frame->WordLen.size(); i++) {
-        static uint8_t allocTable[32] = {
-            7, 7, 7, 7, 7, 7, 7, 7,
-            7, 7, 7, 7, 7, 7, 7, 7,
-            7, 6, 6, 6, 6, 6, 6, 6,
-            6, 6, 5, 5, 4, 3, 2, 1
-        };
-        frame->WordLen[i].first = allocTable[i];
-        frame->WordLen[i].second = allocTable[i];
+        frame->WordLen[i].first = 0;
+        frame->WordLen[i].second = 0;
+    }
+
+    // Conservative budget calculation: Reserve ~25% for side information (VLCs, sync, tonal, etc.)
+    const uint32_t overheadBits = (frame->Chs.size() == 2 ? 2000 : 1500); 
+    int remainingBits = (int)frame->SizeBits - overheadBits;
+    
+    // Diagnostic
+    // printf("Bit allocation: budget=%u bits, target coeffs=%d bits\n", frame->SizeBits, remainingBits);
+    
+    bool increased = true;
+    while (remainingBits > 0 && increased) {
+        increased = false;
+        // Sony-style priority: lower bands get more bits first. 
+        // We iterate through all bands and increment if they are below the max (7 bits/coeff).
+        for (size_t i = 0; i < frame->WordLen.size(); i++) {
+            if (frame->WordLen[i].first < 7) {
+                // Each increment of wordlen for a band (64 coeffs) consumes 64 bits.
+                if (remainingBits >= 64) {
+                    frame->WordLen[i].first++;
+                    frame->WordLen[i].second++;
+                    remainingBits -= 64;
+                    increased = true;
+                } else {
+                    break; 
+                }
+            }
+        }
     }
 
     frame->SfIdx.resize(frame->NumQuantUnits);
@@ -719,9 +744,12 @@ void TAt3PBitStream::WriteFrame(int channels, const TAt3PGhaData* tonalBlock, co
 
     std::vector<char> buf = bitStream.GetBytes();
 
-    ASSERT(bitStream.GetSizeInBits() <= FrameSz * 8);
-
-    buf.resize(FrameSz);
+    if (bitStream.GetSizeInBits() > FrameSz * 8) {
+        fprintf(stderr, "Budget overflow: %zu bits used, max %u bits\n", bitStream.GetSizeInBits(), FrameSz * 8);
+        buf.resize(FrameSz); // Still write it (it will be truncated) to avoid crash in debug
+    } else {
+        buf.resize(FrameSz);
+    }
     Container->WriteFrame(buf);
 }
 

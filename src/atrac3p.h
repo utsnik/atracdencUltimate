@@ -40,7 +40,7 @@ public:
             : UseGha(GHA_ENABLED)
         {}
     };
-    TAt3PEnc(TCompressedOutputPtr&& out, int channels, TSettings settings);
+    TAt3PEnc(TCompressedOutputPtr&& out, int channels, uint16_t frameSize, TSettings settings);
     TPCMEngine::TProcessLambda GetLambda() override;
     static constexpr int NumSamples = 2048;
     static void ParseAdvancedOpt(const char* opt, TSettings& settings);
