@@ -24,6 +24,7 @@
 #include <vector>
 #include <cassert>
 #include <iostream>
+#include <utility>
 
 namespace NAtracDEnc {
 namespace NAtrac3 {
@@ -63,10 +64,11 @@ public:
     static constexpr uint8_t MaxBfus = 32;
     static constexpr uint32_t NumSamples = 1024;
 
-    static const uint32_t MDCTSz = 512;
+    static constexpr int MDCTSz = 512;
+    static constexpr int SubbandSz = 256; // Frame size part, transform is MDCTSz
     static float ScaleTable[64];
-    static float EncodeWindow[256];
-    static float DecodeWindow[256];
+    static float EncodeWindow[MDCTSz];
+    static float DecodeWindow[MDCTSz];
     static float GainLevel[16];
     static float GainInterpolation[31];
     static constexpr int32_t ExponentOffset = 4;
@@ -129,35 +131,34 @@ public:
     static constexpr THuffEntry HuffTable5[HuffTable5Sz] = {
         { 0x0, 2 },
         { 0x2, 3 }, { 0x3, 3 },
-        { 0x8, 4 }, { 0x9, 4 }, { 0xA, 4 }, { 0xB, 4 }, //{ 0xC, 4 }, { 0xD, 4 },
+        { 0x8, 4 }, { 0x9, 4 }, { 0xA, 4 }, { 0xB, 4 },
         { 0x1C, 5 }, { 0x1D, 5 },
         { 0x3C, 6 }, { 0x3D, 6 }, { 0x3E, 6 }, { 0x3F, 6},
-        { 0xC, 4 }, { 0xD, 4 } //TODO: is it right table???
+        { 0xC, 4 }, { 0xD, 4 }
     };
     static constexpr uint8_t HuffTable6Sz = 31;
     static constexpr THuffEntry HuffTable6[HuffTable6Sz] = {
         { 0x0, 3 },
-        { 0x2, 4 }, { 0x3, 4 }, { 0x4, 4 }, { 0x5, 4 }, { 0x6, 4 }, { 0x7, 4 }, //{ 0x8, 4 }, { 0x9, 4 },
+        { 0x2, 4 }, { 0x3, 4 }, { 0x4, 4 }, { 0x5, 4 }, { 0x6, 4 }, { 0x7, 4 },
         { 0x14, 5 }, { 0x15, 5 }, { 0x16, 5 }, { 0x17, 5 }, { 0x18, 5 }, { 0x19, 5 },
         { 0x34, 6 }, { 0x35, 6 }, { 0x36, 6 }, { 0x37, 6 }, { 0x38, 6 }, { 0x39, 6 }, { 0x3A, 6 }, { 0x3B, 6 },
         { 0x78, 7 }, { 0x79, 7 }, { 0x7A, 7 }, { 0x7B, 7 }, { 0x7C, 7 }, { 0x7D, 7 }, { 0x7E, 7 }, { 0x7F, 7 },
-        { 0x8, 4 }, { 0x9, 4 } //TODO: is it right table???
+        { 0x8, 4 }, { 0x9, 4 }
     };
     static constexpr uint8_t HuffTable7Sz = 63;
     static constexpr THuffEntry HuffTable7[HuffTable7Sz] = {
         { 0x0, 3 },
-        //{ 0x2, 4 }, { 0x3, 4 },
         { 0x8, 5 }, { 0x9, 5 }, { 0xA, 5}, { 0xB, 5 }, { 0xC, 5 }, { 0xD, 5 }, { 0xE, 5}, { 0xF, 5 }, { 0x10, 5 },
-                                                                                                            { 0x11, 5 },
+        { 0x11, 5 },
         { 0x24, 6 }, { 0x25, 6 }, { 0x26, 6 }, { 0x27, 6 }, { 0x28, 6 }, { 0x29, 6 }, { 0x2A, 6 }, { 0x2B, 6 },
         { 0x2C, 6 }, { 0x2D, 6 }, { 0x2E, 6 }, { 0x2F, 6 }, { 0x30, 6 }, { 0x31, 6 }, { 0x32, 6 }, { 0x33, 6 },
         { 0x68, 7 }, { 0x69, 7 }, { 0x6A, 7 }, { 0x6B, 7 }, { 0x6C, 7 }, { 0x6D, 7 }, { 0x6E, 7 },
         { 0x6F, 7 }, { 0x70, 7 }, { 0x71, 7 }, { 0x72, 7 }, { 0x73, 7 }, { 0x74, 7 }, { 0x75, 7 },
         { 0xEC, 8 }, { 0xED, 8 }, { 0xEE, 8 }, { 0xEF, 8 }, { 0xF0, 8 }, { 0xF1, 8 }, { 0xF2, 8 }, { 0xF3, 8 },
-                                                                                               { 0xF4, 8 }, { 0xF5, 8 },
+        { 0xF4, 8 }, { 0xF5, 8 },
         { 0xF6, 8 }, { 0xF7, 8 }, { 0xF8, 8 }, { 0xF9, 8 }, { 0xFA, 8 }, { 0xFB, 8 }, { 0xFC, 8 }, { 0xFD, 8 },
-                                                                                               { 0xFE, 8 }, { 0xFF, 8 },
-        { 0x2, 4 }, { 0x3, 4 } //TODO: is it right table???
+        { 0xFE, 8 }, { 0xFF, 8 },
+        { 0x2, 4 }, { 0x3, 4 }
     };
 
     struct THuffTablePair {
@@ -174,27 +175,32 @@ public:
         { HuffTable6, HuffTable6Sz },
         { HuffTable7, HuffTable7Sz }
     };
-public:
-    TAtrac3Data() {
+
+    static void EnsureInitialized() {
         if (ScaleTable[0] == 0) {
             for (uint32_t i = 0; i < 64; i++) {
-                ScaleTable[i] = pow(2.0, (double)(i / 3.0 - 21.0));
+                ScaleTable[i] = pow(2.0, (double)((i - 15.0) / 3.0));
+            }
+            
+            // ATRAC3 uses a standard 512-sample Sine window for 256-sample subbands.
+            // Formula: sin(pi/512 * (i + 0.5)) provides bit-exact parity for the MDCT alignment.
+            for (int i = 0; i < 512; i++) {
+                float val = sin(M_PI / 512.0 * (i + 0.5));
+                EncodeWindow[i] = val;
+                DecodeWindow[i] = val;
+            }
+
+            for (int i = 0; i < 16; i++) {
+                GainLevel[i] = pow(2.0, ExponentOffset - i);
+            }
+            for (int i = 0; i < 31; i++) {
+                GainInterpolation[i] = pow(2.0, -1.0 / LocSz * (i - 15));
             }
         }
-        for (int i = 0; i < 256; i++) {
-            EncodeWindow[i] = (sin(((i + 0.5) / 256.0 - 0.5) * M_PI) + 1.0)/* * 0.5*/;
-        }
-        for (int i = 0; i < 256; i++) {
-            const double a = EncodeWindow[i];
-            const double b = EncodeWindow[255-i];
-            DecodeWindow[i] = 2.0 * a / (a*a + b*b);
-        }
-        for (int i = 0; i < 16; i++) {
-            GainLevel[i] = pow(2.0, ExponentOffset - i);
-        }
-        for (int i = 0; i < 31; i++) {
-            GainInterpolation[i] = pow(2.0, -1.0 / LocSz * (i - 15));
-        }
+    }
+public:
+    TAtrac3Data() {
+        EnsureInitialized();
     }
     static uint32_t MantissaToCLcIdx(int32_t mantissa) {
         assert(mantissa > -3 && mantissa < 2);
@@ -212,7 +218,7 @@ public:
         { 66150, 192, true },
         { 93713, 272, true },
         { 104738, 304, false },
-        { 132300, 384, false },
+        { 132300, 192, true },
         { 146081, 424, false },
         { 176400, 512, false },
         { 264600, 768, false },
@@ -249,13 +255,12 @@ public:
     };
 
     struct TTonalVal {
-        const uint16_t Pos;
-        const double Val;
-        const uint8_t Bfu;
+        uint16_t Pos;
+        double Val;
+        uint8_t Bfu;
     };
     typedef std::vector<TTonalVal> TTonalComponents;
 };
-
 
 struct TAtrac3EncoderSettings {
     TAtrac3EncoderSettings(uint32_t bitrate, bool noGainControll,

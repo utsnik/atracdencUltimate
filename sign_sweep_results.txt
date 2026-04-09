@@ -1,0 +1,16 @@
+Signs (1, 1, 1, 1) => atracdenc (with Sony Decode) SNR: 9.8890 dB
+Signs (1, 1, 1, -1) => BUILD ERROR
+Signs (1, 1, -1, 1) => BUILD ERROR
+Signs (1, 1, -1, -1) => BUILD ERROR
+Signs (1, -1, 1, 1) => BUILD ERROR
+Signs (1, -1, 1, -1) => BUILD ERROR
+Signs (1, -1, -1, 1) => BUILD ERROR
+Signs (1, -1, -1, -1) => BUILD ERROR
+Signs (-1, 1, 1, 1) => BUILD ERROR
+Signs (-1, 1, 1, -1) => BUILD ERROR
+Signs (-1, 1, -1, 1) => BUILD ERROR
+Signs (-1, 1, -1, -1) => BUILD ERROR
+Signs (-1, -1, 1, 1) => BUILD ERROR
+Signs (-1, -1, 1, -1) => BUILD ERROR
+Signs (-1, -1, -1, 1) => BUILD ERROR
+Signs (-1, -1, -1, -1) => BUILD ERROR

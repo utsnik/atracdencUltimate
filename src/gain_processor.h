@@ -78,7 +78,7 @@ public:
                     level *= gainInc;
                 }
             }
-            for (; pos < T::MDCTSz/2; pos++) {
+            for (; pos < T::SubbandSz; pos++) {
                 //std::cout << "pos: " << pos << " scale: " << scale << std::endl;
                 out[pos] = cur[pos] * scale + prev[pos];
             }
@@ -112,7 +112,7 @@ public:
                     level *= gainInc;
                 }
             }
-            for (; pos < T::MDCTSz/2; pos++) {
+            for (; pos < T::SubbandSz; pos++) {
 
                 //std::cout << "mod pos: " << pos << " scale: " << scale << " bufCur: " << bufCur[pos] << " new value: " << bufCur[pos] / scale<<std::endl;
                 bufCur[pos] /= scale;

@@ -21,6 +21,7 @@
 #include "aea.h"
 #include "atrac/at3/atrac3.h"
 #include "atrac/at3/atrac3_qmf.h"
+#include "atrac/at3/atrac3_gha.h"
 #include "delay_buffer.h"
 #include "util.h"
 
@@ -51,6 +52,7 @@ inline uint16_t RelationToIdx(float x) {
 
 class TAtrac3MDCT {
     using TAtrac3Data = NAtrac3::TAtrac3Data;
+protected:
     NMDCT::TMDCT<512> Mdct512;
     NMDCT::TMIDCT<512> Midct512;
 public:
@@ -88,7 +90,7 @@ class TAtrac3Encoder : public IProcessor, public TAtrac3MDCT {
     float PrevPeak[2][4] = {{0.0}}; //2 channel, 4 band - peak level (after windowing), used to check overflow during scalling
 
     Atrac3AnalysisFilterBank AnalysisFilterBank[2];
-
+    NAtrac3::TAtrac3GhaProcessor GhaProcessor;
     TScaler<TAtrac3Data> Scaler;
     std::vector<NAtrac3::TAtrac3BitStreamWriter::TSingleChannelElement> SingleChannelElements;
 public:

@@ -20,9 +20,13 @@
 #include "transient_detector.h"
 #include "atrac/atrac_psy_common.h"
 #include <assert.h>
-#include <algorithm>
+#include <fstream>
 #include <iostream>
+#include <algorithm>
+#include <functional>
+#include <vector>
 #include <cmath>
+
 namespace NAtracDEnc {
 
 using namespace NMDCT;
@@ -33,23 +37,29 @@ void TAtrac3MDCT::Mdct(float specs[1024], float* bands[4], float maxLevels[4], T
 {
     for (int band = 0; band < 4; ++band) {
         float* srcBuff = bands[band];
-        float* const curSpec = &specs[band*256];
         TGainModulator modFn = gainModulators[band];
-        float tmp[512];
-        memcpy(&tmp[0], srcBuff, 256 * sizeof(float));
+        float tmpFrame[512];
+        memcpy(tmpFrame, srcBuff, 512 * sizeof(float));
+
         if (modFn) {
-            modFn(&tmp[0], &srcBuff[256]);
+            modFn(&tmpFrame[0], &tmpFrame[256]); 
         }
+
         float max = 0.0;
-        for (int i = 0; i < 256; i++) {
-            max = std::max(max, std::abs(srcBuff[256+i]));
-            srcBuff[i] = TAtrac3Data::EncodeWindow[i] * srcBuff[256+i];
-            tmp[256+i] = TAtrac3Data::EncodeWindow[255-i] * srcBuff[256+i];
+        for (int i = 0; i < 512; i++) {
+            max = std::max(max, std::abs(tmpFrame[i]));
+            tmpFrame[i] *= TAtrac3Data::EncodeWindow[i];
         }
-        const vector<float>& sp = Mdct512(&tmp[0]);
+
+        const vector<float>& sp = Mdct512(tmpFrame);
         assert(sp.size() == 256);
-        memcpy(curSpec, sp.data(), 256 * sizeof(float));
-        if (band & 1) {
+        
+        float* const curSpec = &specs[band * 256];
+        for (int i = 0; i < 256; ++i) {
+            curSpec[i] = sp[i] * 1.41421356f;
+        }
+
+        if (band % 2 != 0) {
             SwapArray(curSpec, 256);
         }
         maxLevels[band] = max;
@@ -66,26 +76,32 @@ void TAtrac3MDCT::Midct(float specs[1024], float* bands[4], TGainDemodulatorArra
 {
     for (int band = 0; band < 4; ++band) {
         float* dstBuff = bands[band];
-        float* curSpec = &specs[band*256];
-        float* prevBuff = dstBuff + 256;
+        float* curSpec = &specs[band * 256];
+        float* prevBuff = dstBuff + 256; 
         TAtrac3GainProcessor::TGainDemodulator demodFn = gainDemodulators[band];
-        if (band & 1) {
+
+        if (band % 2 != 0) {
             SwapArray(curSpec, 256);
         }
-        vector<float> inv  = Midct512(curSpec);
-        assert(inv.size()/2 == 256);
-        for (int j = 0; j < 256; ++j) {
-            inv[j] *= /*2 */ TAtrac3Data::DecodeWindow[j];
-            inv[511 - j] *= /*2*/ TAtrac3Data::DecodeWindow[j];
+
+        vector<float> inv = Midct512(curSpec);
+        assert(inv.size() == 512);
+
+        for (int i = 0; i < 512; ++i) {
+            inv[i] *= TAtrac3Data::DecodeWindow[i];
         }
+
+        float out[256];
+        for (int i = 0; i < 256; ++i) {
+            out[i] = inv[i] + prevBuff[i];
+            prevBuff[i] = inv[256 + i];
+        }
+
         if (demodFn) {
-            demodFn(dstBuff, inv.data(), prevBuff);
+            demodFn(dstBuff, out, prevBuff); 
         } else {
-            for (uint32_t j = 0; j < 256; ++j) {
-                dstBuff[j] = inv[j] + prevBuff[j];
-            }
+            memcpy(dstBuff, out, 256 * sizeof(float));
         }
-        memcpy(prevBuff, &inv[256], sizeof(float)*256);
     }
 }
 
@@ -104,29 +120,20 @@ TAtrac3MDCT::TGainModulatorArray TAtrac3MDCT::MakeGainModulatorArray(const TAtra
 {
     switch (si.GetQmfNum()) {
         case 1:
-        {
             return {{ GainProcessor.Modulate(si.GetGainPoints(0)), TAtrac3MDCT::TGainModulator(),
                 TAtrac3MDCT::TGainModulator(), TAtrac3MDCT::TGainModulator() }};
-        }
         case 2:
-        {
             return {{ GainProcessor.Modulate(si.GetGainPoints(0)), GainProcessor.Modulate(si.GetGainPoints(1)),
                 TAtrac3MDCT::TGainModulator(), TAtrac3MDCT::TGainModulator() }};
-        }
         case 3:
-        {
             return {{ GainProcessor.Modulate(si.GetGainPoints(0)), GainProcessor.Modulate(si.GetGainPoints(1)),
                 GainProcessor.Modulate(si.GetGainPoints(2)), TAtrac3MDCT::TGainModulator() }};
-        }
         case 4:
-        {
             return {{ GainProcessor.Modulate(si.GetGainPoints(0)), GainProcessor.Modulate(si.GetGainPoints(1)),
                 GainProcessor.Modulate(si.GetGainPoints(2)), GainProcessor.Modulate(si.GetGainPoints(3)) }};
-        }
         default:
             assert(false);
             return {};
-
     }
 }
 
@@ -152,14 +159,10 @@ const TAtrac3Encoder::TTransientParam& TAtrac3Encoder::GetTransientParamsHistory
 
 TAtrac3Encoder::TTransientParam TAtrac3Encoder::CalcTransientParam(const std::vector<float>& gain, const float lastMax)
 {
-    int32_t attack0Location = -1; // position where gain is risen up, -1 - no attack
+    int32_t attack0Location = -1;
     float attack0Relation = 1;
-
     const float attackThreshold = 2;
-
     {
-        // pre-echo searching
-        // relative to previous half frame
         for (uint32_t i = 0; i < gain.size(); i++) {
             const float tmp = gain[i] / lastMax;
             if (tmp > attackThreshold) {
@@ -169,12 +172,9 @@ TAtrac3Encoder::TTransientParam TAtrac3Encoder::CalcTransientParam(const std::ve
             }
          }
     }
-
     int32_t attack1Location = -1;
     float attack1Relation = 1;
     {
-        // pre-echo searching
-        // relative to previous subsamples block
         float q = gain[0];
         for (uint32_t i = 1; i < gain.size(); i++) {
             const float tmp = gain[i] / q;
@@ -185,14 +185,10 @@ TAtrac3Encoder::TTransientParam TAtrac3Encoder::CalcTransientParam(const std::ve
             q = std::max(q, gain[i]);
         }
     }
-
-    int32_t releaseLocation = -1; // position where gain is fallen down, -1 - no release
+    int32_t releaseLocation = -1;
     float releaseRelation = 1;
-
     const float releaseTreshold = 2;
     {
-        // post-echo searching
-        // relative to current frame
         float q = gain.back();
         for (uint32_t i = gain.size() - 2; i > 0; --i) {
             const float tmp = gain[i] / q;
@@ -204,69 +200,37 @@ TAtrac3Encoder::TTransientParam TAtrac3Encoder::CalcTransientParam(const std::ve
             q = std::max(q, gain[i]);
         }
     }
-
     return {attack0Location, attack0Relation, attack1Location, attack1Relation, releaseLocation, releaseRelation};
 }
 
-void TAtrac3Encoder::CreateSubbandInfo(float* in[4],
-                                         uint32_t channel,
-                                         TAtrac3Data::SubbandInfo* subbandInfo)
+void TAtrac3Encoder::CreateSubbandInfo(float* in[4], uint32_t channel, TAtrac3Data::SubbandInfo* subbandInfo)
 {
-
     auto relToIdx = [](float rel) {
         rel = 1.0/rel;
         return (uint32_t)(RelationToIdx(rel));
     };
-
     for (int band = 0; band < 4; ++band) {
-
         const float* srcBuff = in[band];
-
         const float* const lastMax = &PrevPeak[channel][band];
-
         std::vector<TAtrac3Data::SubbandInfo::TGainPoint> curve;
         const std::vector<float> gain = AnalyzeGain(srcBuff, 256, 32, false);
-
         auto transientParam = CalcTransientParam(gain, *lastMax);
         bool hasTransient = false;
-
         if (transientParam.Attack0Location == -1 && transientParam.Attack1Location == -1 && transientParam.ReleaseLocation == -1) {
-            // No transient
             ResetTransientParamsHistory(channel, band);
             continue;
         }
         if (transientParam.Attack0Location == -1 && transientParam.Attack1Location == -1) {
-            // Release only in current frame - PostEcho. Not implemented yet.
-            // Note: "Hole like" transient also possible (if value is grather in next frame),
-            // but we keep peak value of this frame, so in next frame we will use this peak value
-            // for searching attack.
-            // Handling "Hole like" transients also not implemented. But it should be masked
             SetTransientParamsHistory(channel, band, transientParam);
             continue;
         }
-
         auto transientParamHistory = GetTransientParamsHistory(channel, band);
-
         if (transientParamHistory.Attack0Location == -1 && transientParamHistory.Attack1Location == -1 && transientParamHistory.ReleaseLocation == -1 &&
-            transientParam.Attack0Location != -1 /*&& transientParam.Attack1Location == -1*/ && transientParam.ReleaseLocation == -1) {
-            // No transient at previous frame, but transient (attack) at border of first and second half - simplest way, just scale the first half.
-
-            //std::cout << "CASE 1: " << transientParam.Attack0Location << " " << transientParam.Attack0Relation << std::endl;
+            transientParam.Attack0Location != -1 && transientParam.ReleaseLocation == -1) {
             auto idx = relToIdx(transientParam.Attack0Relation);
-            //std::cout << "PREV PEAK: " << *lastMax << " " << idx << std::endl;
             curve.push_back({idx, (uint32_t)transientParam.Attack0Location});
             hasTransient = true;
         }
-
-        //std::cout << "transient params band: " << band <<  " atack0loc: " << transientParam.Attack0Location << " atack0rel: " << transientParam.Attack0Relation <<
-        //                            " atack1loc: " << transientParam.Attack1Location << " atack1rel: " << transientParam.Attack1Relation <<
-        //                            " releaseloc: " << transientParam.ReleaseLocation << " releaserel: "<< transientParam.ReleaseRelation << std::endl;
-
-        //for (int i = 0; i < 256; i++) {
-        //    std::cout << i << "   " << srcBuff[i] << "  |  " << srcBuff[i-256] << std::endl;
-        //}
- 
-
         SetTransientParamsHistory(channel, band, transientParam);
         if (hasTransient) {
             subbandInfo->AddSubbandCurve(band, std::move(curve));
@@ -293,30 +257,68 @@ TPCMEngine::TProcessLambda TAtrac3Encoder::GetLambda()
     std::shared_ptr<TAtrac3BitStreamWriter> bitStreamWriter(new TAtrac3BitStreamWriter(Oma.get(), *Params.ConteinerParams, Params.BfuIdxConst));
 
     struct TChannelData {
-        TChannelData()
-            : Specs(TAtrac3Data::NumSamples)
-        {}
-
+        TChannelData() : Specs(TAtrac3Data::NumSamples) {}
         vector<float> Specs;
     };
 
-    using TData = vector<TChannelData>;
-    auto buf = std::make_shared<TData>(2);
+    auto buf = std::make_shared<vector<TChannelData>>(2);
+    
+    // Load mapping and signs from file at initialization
+    std::vector<int> runtime_mapping = {0, 6, 4, 2}; // Optimal Forensic Mapping: LL, HH, HL, LH
+    std::vector<float> runtime_signs = {1.0f, 1.0f, 1.0f, 1.0f};
 
-    return [this, bitStreamWriter, buf](float* data, const TPCMEngine::ProcessMeta& meta) {
-        using TSce = TAtrac3BitStreamWriter::TSingleChannelElement;
+    std::ifstream fMap("mapping.txt");
+    if (fMap.is_open()) {
+        for (int i = 0; i < 4; ++i) {
+            if (!(fMap >> runtime_mapping[i])) break;
+        }
+        fMap.close();
+    }
 
+    std::vector<int> runtime_delays = {0, 0, 0, 0};
+    std::ifstream fDelays("delays.txt");
+    if (fDelays.is_open()) {
+        for (int i = 0; i < 4; ++i) {
+            if (!(fDelays >> runtime_delays[i])) break;
+        }
+        fDelays.close();
+    }
+
+    std::vector<int> runtime_mirroring = {0, 1, 0, 1}; // Default: LL=0, LH=1, HL=0, HH=1
+    std::ifstream fMirror("mirroring.txt");
+    if (fMirror.is_open()) {
+        for (int i = 0; i < 4; ++i) {
+            if (!(fMirror >> runtime_mirroring[i])) break;
+        }
+        fMirror.close();
+    }
+
+    std::ifstream fSigns("signs.txt");
+    if (fSigns.is_open()) {
+        for (int i = 0; i < 4; ++i) {
+            if (!(fSigns >> runtime_signs[i])) break;
+        }
+        fSigns.close();
+    }
+
+    printf("RUNTIME CONFIG: Mapping={%d,%d,%d,%d} Signs={%.1f,%.1f,%.1f,%.1f} Delays={%d,%d,%d,%d} Mirroring={%d,%d,%d,%d}\n", 
+           runtime_mapping[0], runtime_mapping[1], runtime_mapping[2], runtime_mapping[3],
+           runtime_signs[0], runtime_signs[1], runtime_signs[2], runtime_signs[3],
+           runtime_delays[0], runtime_delays[1], runtime_delays[2], runtime_delays[3],
+           runtime_mirroring[0], runtime_mirroring[1], runtime_mirroring[2], runtime_mirroring[3]);
+
+    for (int ch = 0; ch < 2; ++ch) {
+        for (int i = 0; i < 4; ++i) AnalysisFilterBank[ch].DelayConfig[i] = runtime_delays[i];
+    }
+
+    return [this, bitStreamWriter, buf, runtime_mapping, runtime_signs, runtime_mirroring](float* data, const TPCMEngine::ProcessMeta& meta) {
         for (uint32_t channel = 0; channel < meta.Channels; channel++) {
             float src[TAtrac3Data::NumSamples];
-
             for (size_t i = 0; i < TAtrac3Data::NumSamples; ++i) {
-                src[i] = data[i * meta.Channels  + channel] / 4.0;
+                src[i] = data[i * meta.Channels + channel] * 32768.0f;
             }
-
-            {
-                float* p[4] = {PcmBuffer.GetSecond(channel), PcmBuffer.GetSecond(channel+2), PcmBuffer.GetSecond(channel+4), PcmBuffer.GetSecond(channel+6)};
-                AnalysisFilterBank[channel].Analysis(&src[0], p);
-            }
+            float* p[4] = {PcmBuffer.GetSecond(channel), PcmBuffer.GetSecond(channel+2), PcmBuffer.GetSecond(channel+4), PcmBuffer.GetSecond(channel+6)};
+            AnalysisFilterBank[channel].Analysis(&src[0], p);
         }
 
         if (Params.ConteinerParams->Js && meta.Channels == 2) {
@@ -325,50 +327,69 @@ TPCMEngine::TProcessLambda TAtrac3Encoder::GetLambda()
 
         for (uint32_t channel = 0; channel < meta.Channels; channel++) {
             auto& specs = (*buf)[channel].Specs;
-            TSce* sce = &SingleChannelElements[channel];
+            auto* sce = &SingleChannelElements[channel];
 
             sce->SubbandInfo.Reset();
+            sce->TonalBlocks.clear();
+            sce->BfuIsTonal.assign(32, false); 
+
             if (!Params.NoGainControll) {
-                float* p[4] = {PcmBuffer.GetSecond(channel), PcmBuffer.GetSecond(channel+2), PcmBuffer.GetSecond(channel+4), PcmBuffer.GetSecond(channel+6)};
-                CreateSubbandInfo(p, channel, &sce->SubbandInfo); //4 detectors per band
+                // Mapping from mapping.txt for Transient Detector
+                float* p[4] = {PcmBuffer.GetSecond(channel + runtime_mapping[0]), PcmBuffer.GetSecond(channel + runtime_mapping[1]), 
+                               PcmBuffer.GetSecond(channel + runtime_mapping[2]), PcmBuffer.GetSecond(channel + runtime_mapping[3])};
+                CreateSubbandInfo(p, channel, &sce->SubbandInfo);
             }
 
-            float* maxOverlapLevels = PrevPeak[channel];
+            if (!Params.NoTonalComponents) {
+                // Correctly size dummyAlloc to 32 to ensure we stay within bounds for all BFUs
+                std::vector<uint32_t> dummyAlloc(32, 4); 
+                for (int band = 0; band < 4; ++band) {
+                    float* subTime = PcmBuffer.GetSecond(channel + runtime_mapping[band]);
+                    GhaProcessor.ExtractTones(subTime, band, dummyAlloc, sce->TonalBlocks, sce->BfuIsTonal);
+                }
+                // Tonal components MUST be sorted by position for the bitstream grouping logic to work.
+                // Failure to sort causes invalid relative positions and decoder crashes.
+                std::sort(sce->TonalBlocks.begin(), sce->TonalBlocks.end(), [](const auto& a, const auto& b) {
+                    return a.Val.Pos < b.Val.Pos;
+                });
+            }
 
             {
-                float* p[4] = {PcmBuffer.GetFirst(channel), PcmBuffer.GetFirst(channel+2), PcmBuffer.GetFirst(channel+4), PcmBuffer.GetFirst(channel+6)};
-                Mdct(specs.data(), p, maxOverlapLevels, MakeGainModulatorArray(sce->SubbandInfo));
+                // Mapping from mapping.txt for MDCT
+                float* p[4] = {PcmBuffer.GetFirst(channel + runtime_mapping[0]), PcmBuffer.GetFirst(channel + runtime_mapping[1]), 
+                               PcmBuffer.GetFirst(channel + runtime_mapping[2]), PcmBuffer.GetFirst(channel + runtime_mapping[3])};
+                
+                // MDCT loop
+                for (int band = 0; band < 4; ++band) {
+                    float* srcBuff = p[band];
+                    float tmpFrame[512];
+                    memcpy(tmpFrame, srcBuff, 512 * sizeof(float));
+                    
+                    for (int i = 0; i < 512; i++) {
+                        tmpFrame[i] *= TAtrac3Data::EncodeWindow[i];
+                    }
+
+                    const vector<float>& sp = Mdct512(tmpFrame);
+                    float* const curSpec = &specs[band * 256];
+                    for (int i = 0; i < 256; ++i) {
+                        curSpec[i] = sp[i] * 1.41421356f * runtime_signs[band];
+                    }
+                    
+                    if (runtime_mirroring[band]) {
+                        SwapArray(curSpec, 256);
+                    }
+                }
             }
 
             float l = 0;
             for (size_t i = 0; i < specs.size(); i++) {
-                float e = specs[i] * specs[i];
-                l += e * LoudnessCurve[i];
+                l += specs[i] * specs[i] * LoudnessCurve[i];
             }
-
             sce->Loudness = l;
-
-            //TBlockSize for ATRAC3 - 4 subband, all are long (no short window)
             sce->ScaledBlocks = Scaler.ScaleFrame(specs, TAtrac3Data::TBlockSizeMod());
         }
 
-        if (meta.Channels == 2 && !Params.ConteinerParams->Js) {
-            const TSce& sce0 = SingleChannelElements[0];
-            const TSce& sce1 = SingleChannelElements[1];
-            Loudness = TrackLoudness(Loudness, sce0.Loudness, sce1.Loudness);
-        } else {
-            // 1 channel or Js. In case of Js we do not use side channel to adjust loudness
-            const TSce& sce0 = SingleChannelElements[0];
-            Loudness = TrackLoudness(Loudness, sce0.Loudness);
-        }
-
-        if (Params.ConteinerParams->Js && meta.Channels == 1) {
-            // In case of JointStereo and one input channel (mono input) we need to construct one empty SCE to produce
-            // correct bitstream
-            SingleChannelElements.resize(2);
-            // Set 1 subband
-            SingleChannelElements[1].SubbandInfo.Info.resize(1);
-        }
+        PcmBuffer.Shift(false);
 
         bitStreamWriter->WriteSoundUnit(SingleChannelElements, Loudness);
         return TPCMEngine::EProcessResult::PROCESSED;

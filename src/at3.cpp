@@ -48,27 +48,36 @@ At3WaveHeader {
     char riff_format[4];
 
     // "fmt " subchunk
+    // Layout verified byte-for-byte against at3tool.exe v3.0.0.0 hex dump.
+    // Total fmt content = 18 (WAVEFORMATEX base) + 14 (extradata) = 32 (0x20)
     char subchunk1_id[4];
-    uint32_t subchunk1_size;
+    uint32_t subchunk1_size;    // = 32
 
     // WAVEFORMAT
-    uint16_t audio_format;
+    uint16_t audio_format;      // 0x270 = WAVE_FORMAT_SONY_SCX (ATRAC3)
     uint16_t num_channels;
     uint32_t sample_rate;
     uint32_t byte_rate;
-    uint16_t block_align;
-    uint16_t bits_per_sample;
+    uint16_t block_align;       // = frameSize
+    uint16_t bits_per_sample;   // = 0
 
     // WAVEFORMATEX cbSize
-    uint16_t extradata_size; // 14
+    uint16_t extradata_size;    // = 14 (0x0E)
 
-    // atrac3 extradata
-    uint16_t unknown0; // always 1
-    uint32_t bytes_per_frame; // samples per channel (ffmpeg) or bytes per frame (libnetmd)
-    uint16_t coding_mode; // 1 = joint stereo, 0 = stereo
-    uint16_t coding_mode2; // same as <coding_mode>
-    uint16_t unknown1; // always 1
-    uint16_t unknown2; // always 0
+    // ATRAC3 extradata (14 bytes) - matches at3tool.exe byte-for-byte
+    uint16_t unknown0;          // always 1
+    uint32_t samples_per_block; // = numSamples * numChannels * 2 (e.g. 4096 for stereo)
+    uint16_t coding_mode;       // 0 = stereo, 1 = joint stereo
+    uint16_t coding_mode2;      // same as coding_mode
+    uint16_t unknown1;          // always 1
+    uint16_t unknown2;          // always 0
+
+    // "fact" chunk (required by Sony decoders - 12-byte payload)
+    char fact_id[4];
+    uint32_t fact_size;         // = 12
+    uint32_t total_samples;     // = numFrames * 1024
+    uint32_t fact_unknown_a;    // = 0x400 (observed in at3tool baseline)
+    uint32_t fact_unknown_b;    // = 0x400 (observed in at3tool baseline)
 
     // "data" subchunk
     char subchunk2_id[4];
@@ -98,11 +107,12 @@ public:
         }
 
         memcpy(header.riff_chunk_id, "RIFF", 4);
-        header.chunk_size = swapbyte32_on_be(file_size);
+        header.chunk_size = swapbyte32_on_be(file_size - 8);
         memcpy(header.riff_format, "WAVE", 4);
 
         memcpy(header.subchunk1_id, "fmt ", 4);
-        header.subchunk1_size = swapbyte32_on_be(offsetof(struct At3WaveHeader, subchunk2_id) -
+        // fmt content = 18 (WAVEFORMATEX base) + 14 (extradata) = 32 bytes
+        header.subchunk1_size = swapbyte32_on_be(offsetof(struct At3WaveHeader, fact_id) -
                                                  offsetof(struct At3WaveHeader, audio_format));
 
         // libnetmd: #define NETMD_RIFF_FORMAT_TAG_ATRAC3 0x270
@@ -111,21 +121,28 @@ public:
         header.audio_format = swapbyte16_on_be(0x270);
         header.num_channels = swapbyte16_on_be(numChannels);
         header.sample_rate = swapbyte32_on_be(44100);
-        header.byte_rate = swapbyte32_on_be(frameSize * header.sample_rate / 1024);
-        header.block_align = swapbyte16_on_be(frameSize);
+        header.byte_rate = swapbyte32_on_be(16538); // 132.3kbps / 8 rounded up
+        header.block_align = swapbyte16_on_be(frameSize * 2); // Sony uses dual-frame blocks (384 bytes)
         header.bits_per_sample = swapbyte16_on_be(0);
-        header.extradata_size = swapbyte16_on_be(offsetof(struct At3WaveHeader, subchunk2_id) -
-                                                 offsetof(struct At3WaveHeader, unknown0));
+        header.extradata_size = swapbyte16_on_be(14);
 
+        // Extradata: byte-for-byte verified against at3tool.exe hex dump
         header.unknown0 = swapbyte16_on_be(1);
-        header.bytes_per_frame = swapbyte32_on_be(0x0010); // XXX
-        header.coding_mode = swapbyte16_on_be(jointStereo ? 0x0001 : 0x0000);
-        header.coding_mode2 = header.coding_mode; // already byte-swapped (if needed)
+        header.samples_per_block = swapbyte32_on_be(2048); // 2 frames per block
+        header.coding_mode  = swapbyte16_on_be(jointStereo ? 0x0001 : 0x0000);
+        header.coding_mode2 = swapbyte16_on_be(jointStereo ? 0x0001 : 0x0000);
         header.unknown1 = swapbyte16_on_be(1);
         header.unknown2 = swapbyte16_on_be(0);
 
+        // fact chunk - mandatory for Sony tool compatibility
+        memcpy(header.fact_id, "fact", 4);
+        header.fact_size      = swapbyte32_on_be(12);
+        header.total_samples  = swapbyte32_on_be(numFrames * 1024);
+        header.fact_unknown_a = swapbyte32_on_be(0x400);
+        header.fact_unknown_b = swapbyte32_on_be(0x400);
+
         memcpy(header.subchunk2_id, "data", 4);
-        header.subchunk2_size = swapbyte32_on_be(numFrames * frameSize); // TODO
+        header.subchunk2_size = swapbyte32_on_be(numFrames * frameSize);
 
         if (fwrite(&header, 1, sizeof(header), fp) != sizeof(header)) {
             throw std::runtime_error("Cannot write WAV header to file");

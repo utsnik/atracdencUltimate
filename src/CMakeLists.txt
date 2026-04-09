@@ -92,6 +92,7 @@ set(SOURCE_ATRACDENC_IMPL
     atrac3denc.cpp
     atrac/at3/atrac3.cpp
     atrac/at3/atrac3_bitstream.cpp
+    atrac/at3/atrac3_gha.cpp
     atrac/atrac3plus_pqf/atrac3plus_pqf.c
     atrac/at3p/ff/atrac3plusdsp.c
     atrac/at3p/at3p.cpp

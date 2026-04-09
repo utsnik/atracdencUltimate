@@ -120,9 +120,7 @@ public:
             return 1;
         return 2;
     }
-public:
-    static const uint32_t NumSamples = 512;
-    TAtrac1Data() {
+    static void EnsureInitialized() {
         if (ScaleTable[0] == 0) {
             for (uint32_t i = 0; i < 64; i++) {
                 ScaleTable[i] = pow(2.0, (double)(i / 3.0 - 21.0));
@@ -130,9 +128,14 @@ public:
         }
         if (SineWindow[0] == 0) {
             for (uint32_t i = 0; i < 32; i++) {
-                SineWindow[i] = sin((i + 0.5) * (M_PI / (2.0 * 32.0)));
+                SineWindow[i] = sin((i + 0.5) * (3.14159265358979323846 / (2.0 * 32.0)));
             }
         }
+    }
+public:
+    static const uint32_t NumSamples = 512;
+    TAtrac1Data() {
+        EnsureInitialized();
     }
 };
 

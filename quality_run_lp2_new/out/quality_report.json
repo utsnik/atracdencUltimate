@@ -1,0 +1,139 @@
+{
+  "baseline": [
+    {
+      "input": "atracdenc\\quality_run_lp2_new\\input\\sine_1k_5s.wav",
+      "at3tool_encode": {
+        "code": 0,
+        "log": "Encoding 132 kbps (ATRAC3)\nTotal Encoded Bytes    =   83328 Bytes@217frames(ave=384bytes)\n"
+      },
+      "at3tool_decode": {
+        "code": 0,
+        "log": "Decoding 132 kbps (ATRAC3)\nDecoded Bytes    =   83328 Bytes@217frames(ave=384bytes)\n"
+      },
+      "at3tool_metrics": {
+        "snr_db": 56.95640563964844,
+        "spectral_l1": 0.0003716604834935609,
+        "sr": 44100,
+        "sr_dec": 44100
+      },
+      "at3tool_metrics_aligned": {
+        "snr_db": 56.95640563964844,
+        "lag": 0
+      }
+    },
+    {
+      "input": "atracdenc\\quality_run_lp2_new\\input\\chirp_20_20k_5s.wav",
+      "at3tool_encode": {
+        "code": 0,
+        "log": "Encoding 132 kbps (ATRAC3)\nTotal Encoded Bytes    =   83328 Bytes@217frames(ave=384bytes)\n"
+      },
+      "at3tool_decode": {
+        "code": 0,
+        "log": "Decoding 132 kbps (ATRAC3)\nDecoded Bytes    =   83328 Bytes@217frames(ave=384bytes)\n"
+      },
+      "at3tool_metrics": {
+        "snr_db": 24.14443588256836,
+        "spectral_l1": 0.0015781773990833723,
+        "sr": 44100,
+        "sr_dec": 44100
+      },
+      "at3tool_metrics_aligned": {
+        "snr_db": 24.14443588256836,
+        "lag": 0
+      }
+    },
+    {
+      "input": "atracdenc\\quality_run_lp2_new\\input\\multitone_5s.wav",
+      "at3tool_encode": {
+        "code": 0,
+        "log": "Encoding 132 kbps (ATRAC3)\nTotal Encoded Bytes    =   83328 Bytes@217frames(ave=384bytes)\n"
+      },
+      "at3tool_decode": {
+        "code": 0,
+        "log": "Decoding 132 kbps (ATRAC3)\nDecoded Bytes    =   83328 Bytes@217frames(ave=384bytes)\n"
+      },
+      "at3tool_metrics": {
+        "snr_db": 39.34388732910156,
+        "spectral_l1": 0.0012567982093402703,
+        "sr": 44100,
+        "sr_dec": 44100
+      },
+      "at3tool_metrics_aligned": {
+        "snr_db": 39.34388732910156,
+        "lag": 0
+      }
+    },
+    {
+      "input": "atracdenc\\quality_run_lp2_new\\input\\transient_5s.wav",
+      "at3tool_encode": {
+        "code": 0,
+        "log": "Encoding 132 kbps (ATRAC3)\nTotal Encoded Bytes    =   83328 Bytes@217frames(ave=384bytes)\n"
+      },
+      "at3tool_decode": {
+        "code": 0,
+        "log": "Decoding 132 kbps (ATRAC3)\nDecoded Bytes    =   83328 Bytes@217frames(ave=384bytes)\n"
+      },
+      "at3tool_metrics": {
+        "snr_db": 45.740867614746094,
+        "spectral_l1": 0.002460296977163687,
+        "sr": 44100,
+        "sr_dec": 44100
+      },
+      "at3tool_metrics_aligned": {
+        "snr_db": 45.740867614746094,
+        "lag": 0
+      }
+    }
+  ],
+  "sweep": [
+    {
+      "ghadbg": null,
+      "items": [
+        {
+          "input": "atracdenc\\quality_run_lp2_new\\input\\sine_1k_5s.wav",
+          "atracdenc_encode": {
+            "code": 0,
+            "log": "Input:\n Filename: atracdenc\\quality_run_lp2_new\\input\\sine_1k_5s.wav\n Channels: 2\n SampleRate: 44100\n Duration (sec): 5\nOutput:\n Filename: atracdenc\\quality_run_lp2_new\\out\\default\\sine_1k_5s.atracdenc.oma\n Codec: ATRAC3\n Container: OMA\n Bitrate: 132300\nEntering process loop...\n\\  1% done\n|  3% done\n/  5% done\n-  7% done\n\\  9% done\n|  11% done\n/  13% done\n-  14% done\n\\  16% done\n|  18% done\n/  20% done\n-  22% done\n\\  24% done\n|  26% done\n/  27% done\n-  29% done\n\\  31% done\n|  33% done\n/  35% done\n-  37% done\n\\  39% done\n|  40% done\n/  42% done\n-  44% done\n\\  46% done\n|  48% done\n/  50% done\n-  52% done\n\\  53% done\n|  55% done\n/  57% done\n-  59% done\n\\  61% done\n|  63% done\n/  65% done\n-  66% done\n\\  68% done\n|  70% done\n/  72% done\n-  74% done\n\\  76% done\n|  78% done\n/  79% done\n-  81% done\n\\  83% done\n|  85% done\n/  87% done\n-  89% done\n\\  91% done\n|  92% done\n/  94% done\n-  96% done\n\\  98% done\nEnd of input file.\n\n\nDone\n"
+          },
+          "atracdenc_decode_with_at3tool": {
+            "code": 1,
+            "log": "ate =  52[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  66[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  66[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 105[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 132[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  32[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  48[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  64[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  96[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate = 128[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  48[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  64[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  96[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 128[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 160[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 192[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 256[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 320[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 352[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\n\nSCEI ATRAC3plus Codec TOOL Version 3.0.0.0\nSCE CONFIDENTIAL \nCopyright(C) 2009 Sony Computer Entertainment Inc. All Rights Reserved.\n\t*** built w/ ATRAC3plus library version 1.02 ***\nUsage : at3tool [-<option>] file1 file2\n  -e : encode file1(16bit linear 44.1kHz PCM wav file) to file2 \nbelow options only affects to encoding mode(when not, they will be ignored)\n  -br N: specify the bitrate Nkbps\n  -loop S E: specify the loop start point is S samples from the beginning\n             specify the loop end   point is E samples from the beginning\n             S and E must satisfy under conditon\n             0 <= S < S + 6143 <= E < number of samples in file1\n  -wholeloop: set the whole loop\n\n  -d : decode to file1 to file2(16bit linear PCM wav file)\nbelow options only affects to decoding mode(when not, they will be ignored)\n  -repeat N: repeating LOOP part N times(default 2)\n"
+          }
+        },
+        {
+          "input": "atracdenc\\quality_run_lp2_new\\input\\chirp_20_20k_5s.wav",
+          "atracdenc_encode": {
+            "code": 0,
+            "log": "Input:\n Filename: atracdenc\\quality_run_lp2_new\\input\\chirp_20_20k_5s.wav\n Channels: 2\n SampleRate: 44100\n Duration (sec): 5\nOutput:\n Filename: atracdenc\\quality_run_lp2_new\\out\\default\\chirp_20_20k_5s.atracdenc.oma\n Codec: ATRAC3\n Container: OMA\n Bitrate: 132300\nEntering process loop...\n\\  1% done\n|  3% done\n/  5% done\n-  7% done\n\\  9% done\n|  11% done\n/  13% done\n-  14% done\n\\  16% done\n|  18% done\n/  20% done\n-  22% done\n\\  24% done\n|  26% done\n/  27% done\n-  29% done\n\\  31% done\n|  33% done\n/  35% done\n-  37% done\n\\  39% done\n|  40% done\n/  42% done\n-  44% done\n\\  46% done\n|  48% done\n/  50% done\n-  52% done\n\\  53% done\n|  55% done\n/  57% done\n-  59% done\n\\  61% done\n|  63% done\n/  65% done\n-  66% done\n\\  68% done\n|  70% done\n/  72% done\n-  74% done\n\\  76% done\n|  78% done\n/  79% done\n-  81% done\n\\  83% done\n|  85% done\n/  87% done\n-  89% done\n\\  91% done\n|  92% done\n/  94% done\n-  96% done\n\\  98% done\nEnd of input file.\n\n\nDone\n"
+          },
+          "atracdenc_decode_with_at3tool": {
+            "code": 1,
+            "log": "ate =  52[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  66[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  66[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 105[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 132[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  32[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  48[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  64[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  96[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate = 128[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  48[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  64[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  96[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 128[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 160[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 192[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 256[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 320[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 352[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\n\nSCEI ATRAC3plus Codec TOOL Version 3.0.0.0\nSCE CONFIDENTIAL \nCopyright(C) 2009 Sony Computer Entertainment Inc. All Rights Reserved.\n\t*** built w/ ATRAC3plus library version 1.02 ***\nUsage : at3tool [-<option>] file1 file2\n  -e : encode file1(16bit linear 44.1kHz PCM wav file) to file2 \nbelow options only affects to encoding mode(when not, they will be ignored)\n  -br N: specify the bitrate Nkbps\n  -loop S E: specify the loop start point is S samples from the beginning\n             specify the loop end   point is E samples from the beginning\n             S and E must satisfy under conditon\n             0 <= S < S + 6143 <= E < number of samples in file1\n  -wholeloop: set the whole loop\n\n  -d : decode to file1 to file2(16bit linear PCM wav file)\nbelow options only affects to decoding mode(when not, they will be ignored)\n  -repeat N: repeating LOOP part N times(default 2)\n"
+          }
+        },
+        {
+          "input": "atracdenc\\quality_run_lp2_new\\input\\multitone_5s.wav",
+          "atracdenc_encode": {
+            "code": 0,
+            "log": "Input:\n Filename: atracdenc\\quality_run_lp2_new\\input\\multitone_5s.wav\n Channels: 2\n SampleRate: 44100\n Duration (sec): 5\nOutput:\n Filename: atracdenc\\quality_run_lp2_new\\out\\default\\multitone_5s.atracdenc.oma\n Codec: ATRAC3\n Container: OMA\n Bitrate: 132300\nEntering process loop...\n\\  1% done\n|  3% done\n/  5% done\n-  7% done\n\\  9% done\n|  11% done\n/  13% done\n-  14% done\n\\  16% done\n|  18% done\n/  20% done\n-  22% done\n\\  24% done\n|  26% done\n/  27% done\n-  29% done\n\\  31% done\n|  33% done\n/  35% done\n-  37% done\n\\  39% done\n|  40% done\n/  42% done\n-  44% done\n\\  46% done\n|  48% done\n/  50% done\n-  52% done\n\\  53% done\n|  55% done\n/  57% done\n-  59% done\n\\  61% done\n|  63% done\n/  65% done\n-  66% done\n\\  68% done\n|  70% done\n/  72% done\n-  74% done\n\\  76% done\n|  78% done\n/  79% done\n-  81% done\n\\  83% done\n|  85% done\n/  87% done\n-  89% done\n\\  91% done\n|  92% done\n/  94% done\n-  96% done\n\\  98% done\nEnd of input file.\n\n\nDone\n"
+          },
+          "atracdenc_decode_with_at3tool": {
+            "code": 1,
+            "log": "ate =  52[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  66[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  66[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 105[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 132[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  32[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  48[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  64[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  96[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate = 128[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  48[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  64[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  96[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 128[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 160[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 192[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 256[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 320[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 352[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\n\nSCEI ATRAC3plus Codec TOOL Version 3.0.0.0\nSCE CONFIDENTIAL \nCopyright(C) 2009 Sony Computer Entertainment Inc. All Rights Reserved.\n\t*** built w/ ATRAC3plus library version 1.02 ***\nUsage : at3tool [-<option>] file1 file2\n  -e : encode file1(16bit linear 44.1kHz PCM wav file) to file2 \nbelow options only affects to encoding mode(when not, they will be ignored)\n  -br N: specify the bitrate Nkbps\n  -loop S E: specify the loop start point is S samples from the beginning\n             specify the loop end   point is E samples from the beginning\n             S and E must satisfy under conditon\n             0 <= S < S + 6143 <= E < number of samples in file1\n  -wholeloop: set the whole loop\n\n  -d : decode to file1 to file2(16bit linear PCM wav file)\nbelow options only affects to decoding mode(when not, they will be ignored)\n  -repeat N: repeating LOOP part N times(default 2)\n"
+          }
+        },
+        {
+          "input": "atracdenc\\quality_run_lp2_new\\input\\transient_5s.wav",
+          "atracdenc_encode": {
+            "code": 0,
+            "log": "Input:\n Filename: atracdenc\\quality_run_lp2_new\\input\\transient_5s.wav\n Channels: 2\n SampleRate: 44100\n Duration (sec): 5\nOutput:\n Filename: atracdenc\\quality_run_lp2_new\\out\\default\\transient_5s.atracdenc.oma\n Codec: ATRAC3\n Container: OMA\n Bitrate: 132300\nEntering process loop...\n\\  1% done\n|  3% done\n/  5% done\n-  7% done\n\\  9% done\n|  11% done\n/  13% done\n-  14% done\n\\  16% done\n|  18% done\n/  20% done\n-  22% done\n\\  24% done\n|  26% done\n/  27% done\n-  29% done\n\\  31% done\n|  33% done\n/  35% done\n-  37% done\n\\  39% done\n|  40% done\n/  42% done\n-  44% done\n\\  46% done\n|  48% done\n/  50% done\n-  52% done\n\\  53% done\n|  55% done\n/  57% done\n-  59% done\n\\  61% done\n|  63% done\n/  65% done\n-  66% done\n\\  68% done\n|  70% done\n/  72% done\n-  74% done\n\\  76% done\n|  78% done\n/  79% done\n-  81% done\n\\  83% done\n|  85% done\n/  87% done\n-  89% done\n\\  91% done\n|  92% done\n/  94% done\n-  96% done\n\\  98% done\nEnd of input file.\n\n\nDone\n"
+          },
+          "atracdenc_decode_with_at3tool": {
+            "code": 1,
+            "log": "ate =  52[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  66[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  66[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 105[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 132[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  32[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  48[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  64[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  96[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate = 128[kbps], Ch = 1[ch], Sampling Rate = 44100[Hz]\nbitrate =  48[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  64[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate =  96[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 128[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 160[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 192[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 256[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 320[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\nbitrate = 352[kbps], Ch = 2[ch], Sampling Rate = 44100[Hz]\n\nSCEI ATRAC3plus Codec TOOL Version 3.0.0.0\nSCE CONFIDENTIAL \nCopyright(C) 2009 Sony Computer Entertainment Inc. All Rights Reserved.\n\t*** built w/ ATRAC3plus library version 1.02 ***\nUsage : at3tool [-<option>] file1 file2\n  -e : encode file1(16bit linear 44.1kHz PCM wav file) to file2 \nbelow options only affects to encoding mode(when not, they will be ignored)\n  -br N: specify the bitrate Nkbps\n  -loop S E: specify the loop start point is S samples from the beginning\n             specify the loop end   point is E samples from the beginning\n             S and E must satisfy under conditon\n             0 <= S < S + 6143 <= E < number of samples in file1\n  -wholeloop: set the whole loop\n\n  -d : decode to file1 to file2(16bit linear PCM wav file)\nbelow options only affects to decoding mode(when not, they will be ignored)\n  -repeat N: repeating LOOP part N times(default 2)\n"
+          }
+        }
+      ]
+    }
+  ]
+}

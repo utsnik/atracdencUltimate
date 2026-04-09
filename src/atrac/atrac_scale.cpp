@@ -35,7 +35,8 @@ using std::endl;
 
 using std::abs;
 
-static constexpr float MAX_SCALE = 1.0;
+// static constexpr float MAX_SCALE = 1.0; // Removed hardcoded limit
+
 
 float QuantMantisas(const float* in, const uint32_t first, const uint32_t last, const float mul, bool ea, int* const mantisas)
 {
@@ -133,6 +134,7 @@ float QuantMantisas(const float* in, const uint32_t first, const uint32_t last, 
 
 template<class TBaseData>
 TScaler<TBaseData>::TScaler() {
+    TBaseData::EnsureInitialized();
     for (int i = 0; i < 64; i++) {
         ScaleIndex[TBaseData::ScaleTable[i]] = i;
     }
@@ -147,10 +149,12 @@ TScaledBlock TScaler<TBaseData>::Scale(const float* in, uint16_t len) {
             maxAbsSpec = absSpec;
         }
     }
-    if (maxAbsSpec > MAX_SCALE) {
-        cerr << "Scale error: absSpec > MAX_SCALE, val: " << maxAbsSpec << endl;
-        maxAbsSpec = MAX_SCALE;
+    const float maxPossibleScale = TBaseData::ScaleTable[63];
+    if (maxAbsSpec > maxPossibleScale) {
+        cerr << "Scale error: absSpec > ScaleTable[63], val: " << maxAbsSpec << " (max: " << maxPossibleScale << ")" << endl;
+        maxAbsSpec = maxPossibleScale;
     }
+
     const map<float, uint8_t>::const_iterator scaleIter = ScaleIndex.lower_bound(maxAbsSpec);
     const float scaleFactor = scaleIter->first;
     const uint8_t scaleFactorIndex = scaleIter->second;

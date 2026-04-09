@@ -1,19 +1,5 @@
 /*
  * This file is part of AtracDEnc.
- *
- * AtracDEnc is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * AtracDEnc is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with AtracDEnc; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
 #pragma once
@@ -29,15 +15,41 @@ class Atrac3AnalysisFilterBank {
     TQmf<nInSamples / 2> Qmf3;
     std::vector<float> Buf1;
     std::vector<float> Buf2;
+    std::vector<std::vector<float>> SubbandDelays;
 public:
+    int DelayConfig[4] = {0, 0, 0, 0};
+
     Atrac3AnalysisFilterBank() noexcept {
-        Buf1.resize(nInSamples);
-        Buf2.resize(nInSamples);
+        Buf1.resize(nInSamples / 2);
+        Buf2.resize(nInSamples / 2);
+        SubbandDelays.resize(4);
+        for (int i = 0; i < 4; ++i) SubbandDelays[i].assign(8, 0.0f); // Max 8 samples delay
     }
     void Analysis(const float* pcm, float* subs[4]) noexcept {
+        // Stage 1: Split into L (Buf1) and H (Buf2)
         Qmf1.Analysis(pcm, Buf1.data(), Buf2.data());
-        Qmf2.Analysis(Buf1.data(), subs[0], subs[1]);
-        Qmf3.Analysis(Buf2.data(), subs[3], subs[2]);
+        
+        // Stage 2: Synchronized split. 
+        float* raw_subs[4];
+        float tmp[4][256];
+        for (int i=0; i<4; ++i) raw_subs[i] = tmp[i];
+
+        Qmf2.Analysis(Buf1.data(), raw_subs[0], raw_subs[1]);
+        Qmf3.Analysis(Buf2.data(), raw_subs[2], raw_subs[3]);
+
+        // Apply individual delays
+        for (int band = 0; band < 4; ++band) {
+            int d = DelayConfig[band];
+            if (d <= 0) {
+                memcpy(subs[band], raw_subs[band], 256 * sizeof(float));
+            } else {
+                for (int i = 0; i < 256; ++i) {
+                    subs[band][i] = SubbandDelays[band][d - 1];
+                    for (int k = d - 1; k > 0; --k) SubbandDelays[band][k] = SubbandDelays[band][k-1];
+                    SubbandDelays[band][0] = raw_subs[band][i];
+                }
+            }
+        }
     }
 };
 

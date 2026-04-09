@@ -204,7 +204,7 @@ static void PrepareAtrac3Encoder(const string& inFile,
 {
     const int numChannels = encoderSettings.SourceChannels;
     *totalSamples = wavIO->GetTotalSamples();
-    const uint64_t numFrames = (*totalSamples) / 1024;
+    const uint64_t numFrames = ((*totalSamples) + 1023) / 1024;
     if (numFrames >= UINT32_MAX) {
         std::cerr << "Number of input samples exceeds output format limitation,"
             "the result will be incorrect" << std::endl;
@@ -327,6 +327,7 @@ int main_(int argc, char* const* argv)
         { "bfuidxfast", no_argument, NULL, O_BFUIDXFAST},
         { "notransient", optional_argument, NULL, O_NOTRANSIENT},
         { "nostdout", no_argument, NULL, O_NOSTDOUT},
+        { "notonal", no_argument, NULL, O_NOTONAL},
         { "nogaincontrol", no_argument, NULL, O_NOGAINCONTROL},
         { "advanced", required_argument, NULL, O_ADVANCED_OPT},
         { NULL, 0, NULL, 0}
@@ -470,7 +471,7 @@ int main_(int argc, char* const* argv)
             {
                 using NAtrac3::TAtrac3Data;
                 wavIO = OpenWavFile(inFile);
-                NAtrac3::TAtrac3EncoderSettings encoderSettings(bitrate * 1024, noGainControl,
+                NAtrac3::TAtrac3EncoderSettings encoderSettings(bitrate * 1000, noGainControl,
                                                                 noTonalComponents, wavIO->GetChannelNum(), bfuIdxConst);
                 PrepareAtrac3Encoder(inFile, outFile, noStdOut, std::move(encoderSettings),
                 &totalSamples, wavIO, &pcmEngine, &atracProcessor);

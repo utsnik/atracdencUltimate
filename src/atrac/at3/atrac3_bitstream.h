@@ -31,11 +31,11 @@ namespace NAtracDEnc {
 namespace NAtrac3 {
 
 struct TTonalBlock {
-    TTonalBlock(const TAtrac3Data::TTonalVal* valPtr, const TScaledBlock& scaledBlock)
-        : ValPtr(valPtr)
+    TTonalBlock(const TAtrac3Data::TTonalVal& val, const TScaledBlock& scaledBlock)
+        : Val(val)
         , ScaledBlock(scaledBlock)
     {}
-    const TAtrac3Data::TTonalVal* ValPtr = nullptr;
+    TAtrac3Data::TTonalVal Val;
     TScaledBlock ScaledBlock;
 };
 
@@ -45,6 +45,7 @@ public:
         TAtrac3Data::SubbandInfo SubbandInfo;
         std::vector<TTonalBlock> TonalBlocks;
         std::vector<TScaledBlock> ScaledBlocks;
+        std::vector<bool> BfuIsTonal;
         float Loudness;
     };
 private:
@@ -66,6 +67,7 @@ private:
                     const uint32_t blockSize, NBitStream::TBitStream* bitStream);
 
     std::vector<uint32_t> CalcBitsAllocation(const std::vector<TScaledBlock>& scaledBlocks,
+                                             const std::vector<bool>& bfuIsTonal,
                                              uint32_t bfuNum, float spread, float shift, float loudness);
 
     std::pair<uint8_t, std::vector<uint32_t>> CreateAllocation(const TSingleChannelElement& sce,
@@ -76,7 +78,7 @@ private:
                                                           int* mantisas, std::vector<float>& energyErr);
 
     void EncodeSpecs(const TSingleChannelElement& sce, NBitStream::TBitStream* bitStream,
-                     const std::pair<uint8_t, std::vector<uint32_t>>&, const int mt[TAtrac3Data::MaxSpecs]);
+                     const std::pair<uint8_t, std::vector<uint32_t>>&, const int mt[TAtrac3Data::MaxSpecs], bool isSideChannel);
 
     uint8_t GroupTonalComponents(const std::vector<TTonalBlock>& tonalComponents,
                                  const std::vector<uint32_t>& allocTable,

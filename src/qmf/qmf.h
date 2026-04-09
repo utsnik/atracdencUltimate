@@ -47,11 +47,11 @@ public:
 
         memcpy(&PcmBuffer[46], in, nIn * sizeof(float));
 
-        for (size_t j = 0; j < nIn; j+=2) {
+        for (size_t j = 1; j < nIn; j+=2) {
             lower[j/2] = upper[j/2] = 0.0;
             for (size_t i = 0; i < 24; i++)  {
                 lower[j/2] += QmfWindow[2*i] * PcmBuffer[48-1+j-(2*i)];
-                upper[j/2] += QmfWindow[(2*i)+1] * PcmBuffer[48-1+j-(2*i)-1];
+                upper[j/2] += QmfWindow[(2*i)+1] * PcmBuffer[48-1+j-(2*i)];
             }
             temp = upper[j/2];
             upper[j/2] = lower[j/2] - upper[j/2];

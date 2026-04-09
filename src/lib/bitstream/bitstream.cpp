@@ -48,7 +48,8 @@ void TBitStream::Write(uint32_t val, int n) {
         Buf.resize(Buf.size() + (bitsReq / 8 + (overlap ? 2 : 1 )), 0);
     }
     UBytes t;
-    t.ui = (val << (32 - n) >> overlap);
+    uint32_t maskedVal = val & ((1 << n) - 1);
+    t.ui = (maskedVal << (32 - n) >> overlap);
 
     for (int i = 0; i < n/8 + (overlap ? 2 : 1); ++i) {
 #ifdef NBITSTREAM__LITTLE_ENDIAN_CPU

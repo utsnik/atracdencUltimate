@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/cmake_install.cmake",
+		"C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/src/cmake_install.cmake",
+		"C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/src/lib/libgha/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

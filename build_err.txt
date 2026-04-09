@@ -1,0 +1,24 @@
+Using VCVARS: C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat
+**********************************************************************
+** Visual Studio 2022 Developer Command Prompt v17.14.29
+** Copyright (c) 2025 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+[  6%] Built target fft_impl
+[ 14%] Built target pcm_io
+[ 18%] Built target oma
+[ 22%] Built target bitstream
+[ 28%] Built target gha
+[ 30%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at3p/at3p.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+at3p.cpp
+C:\Users\Igland\Antigravity\Ghidra\atracdenc\src\atrac\at3p\at3p.cpp(281): error C2181: illegal else without matching if
+C:\Users\Igland\Antigravity\Ghidra\atracdenc\src\atrac\at3p\at3p.cpp(303): error C2059: syntax error: '}'
+C:\Users\Igland\Antigravity\Ghidra\atracdenc\src\atrac\at3p\at3p.cpp(303): error C2143: syntax error: missing ';' before '}'
+NMAKE : fatal error U1077: 'C:\Users\Igland\AppData\Local\Programs\Python\Python310\Lib\site-packages\cmake\data\bin\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\atracdenc_impl.dir\atrac\at3p\at3p.cpp.obj.d --working-dir=C:\Users\Igland\Antigravity\Ghidra\atracdenc\build\src --filter-prefix="Note: including file: " -- C:\PROGRA~2\MICROS~2\2022\BUILDT~1\VC\Tools\MSVC\1444~1.352\bin\Hostx64\x64\cl.exe @C:\Users\Igland\AppData\Local\Temp\nmABE.tmp' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f src\CMakeFiles\atracdenc_impl.dir\build.make /nologo -SL                 src\CMakeFiles\atracdenc_impl.dir\build' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.

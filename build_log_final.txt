@@ -1,0 +1,140 @@
+**********************************************************************
+** Visual Studio 2022 Developer Command Prompt v17.14.29
+** Copyright (c) 2025 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+-- The C compiler identification is MSVC 19.44.35225.0
+-- The CXX compiler identification is MSVC 19.44.35225.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test flag_supported
+-- Performing Test flag_supported - Failed
+-- Performing Test flag_supported
+-- Performing Test flag_supported - Failed
+-- Looking for include file alloca.h
+-- Looking for include file alloca.h - not found
+-- Configuring done (5.0s)
+-- Generating done (0.2s)
+-- Build files have been written to: C:/Users/Igland/Antigravity/Ghidra/atracdenc/build
+[  2%] Building C object src/CMakeFiles/fft_impl.dir/lib/fft/kissfft_impl/kiss_fft.c.obj
+kiss_fft.c
+[  4%] Building C object src/CMakeFiles/fft_impl.dir/lib/fft/kissfft_impl/tools/kiss_fftr.c.obj
+kiss_fftr.c
+[  6%] Linking C static library fft_impl.lib
+[  6%] Built target fft_impl
+[  8%] Building CXX object src/CMakeFiles/pcm_io.dir/platform/win/pcm_io/mf/pcm_io_mf.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+pcm_io_mf.cpp
+[ 10%] Building CXX object src/CMakeFiles/pcm_io.dir/platform/win/pcm_io/win32/pcm_io_win32.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+pcm_io_win32.cpp
+[ 12%] Building CXX object src/CMakeFiles/pcm_io.dir/platform/win/pcm_io/pcm_io.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+pcm_io.cpp
+[ 14%] Linking CXX static library pcm_io.lib
+[ 14%] Built target pcm_io
+[ 16%] Building C object src/CMakeFiles/oma.dir/lib/liboma/src/liboma.c.obj
+liboma.c
+[ 18%] Linking C static library oma.lib
+[ 18%] Built target oma
+[ 20%] Building CXX object src/CMakeFiles/bitstream.dir/lib/bitstream/bitstream.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+bitstream.cpp
+[ 22%] Linking CXX static library bitstream.lib
+[ 22%] Built target bitstream
+[ 24%] Building C object src/lib/libgha/CMakeFiles/gha.dir/src/gha.c.obj
+gha.c
+[ 26%] Building C object src/lib/libgha/CMakeFiles/gha.dir/src/sle.c.obj
+sle.c
+[ 28%] Linking C static library gha.lib
+[ 28%] Built target gha
+[ 30%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/wav.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+wav.cpp
+[ 32%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/aea.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+aea.cpp
+[ 34%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/env.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+env.cpp
+C:\Users\Igland\Antigravity\Ghidra\atracdenc\src\env.cpp(23): warning C4068: unknown pragma 'STDC'
+[ 36%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/transient_detector.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+transient_detector.cpp
+[ 38%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac1denc.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+atrac1denc.cpp
+[ 40%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at1/atrac1.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+atrac1.cpp
+[ 42%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at1/atrac1_bitalloc.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+atrac1_bitalloc.cpp
+[ 44%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at1/atrac1_dequantiser.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+atrac1_dequantiser.cpp
+[ 46%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/atrac_scale.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+atrac_scale.cpp
+[ 48%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/atrac_psy_common.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+atrac_psy_common.cpp
+[ 50%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/oma.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+oma.cpp
+[ 52%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/rm.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+rm.cpp
+[ 54%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/at3.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+at3.cpp
+[ 56%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac3denc.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+atrac3denc.cpp
+[ 58%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at3/atrac3.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+atrac3.cpp
+[ 60%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at3/atrac3_bitstream.cpp.obj
+cl : Command line warning D9002 : ignoring unknown option '-g'
+cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
+atrac3_bitstream.cpp
+C:\Users\Igland\Antigravity\Ghidra\atracdenc\src\atrac\at3\atrac3_bitstream.cpp(238): error C2660: 'NAtracDEnc::NAtrac3::TAtrac3BitStreamWriter::CalcBitsAllocation': function does not take 5 arguments
+C:\Users\Igland\Antigravity\Ghidra\atracdenc\src\atrac\at3\atrac3_bitstream.h(69): note: see declaration of 'NAtracDEnc::NAtrac3::TAtrac3BitStreamWriter::CalcBitsAllocation'
+C:\Users\Igland\Antigravity\Ghidra\atracdenc\src\atrac\at3\atrac3_bitstream.cpp(238): note: while trying to match the argument list '(const std::vector<NAtracDEnc::TScaledBlock,std::allocator<NAtracDEnc::TScaledBlock>>, uint16_t, float, double, float)'
+C:\Users\Igland\Antigravity\Ghidra\atracdenc\src\atrac\at3\atrac3_bitstream.cpp(425): error C2039: 'ValPtr': is not a member of 'NAtracDEnc::NAtrac3::TTonalBlock'
+C:\Users\Igland\Antigravity\Ghidra\atracdenc\src\atrac\at3\atrac3_bitstream.h(33): note: see declaration of 'NAtracDEnc::NAtrac3::TTonalBlock'
+C:\Users\Igland\Antigravity\Ghidra\atracdenc\src\atrac\at3\atrac3_bitstream.cpp(505): error C2511: 'std::vector<std::_Vbase,std::allocator<std::_Vbase>> NAtracDEnc::NAtrac3::TAtrac3BitStreamWriter::CalcBitsAllocation(const std::vector<NAtracDEnc::TScaledBlock,std::allocator<NAtracDEnc::TScaledBlock>> &,const uint32_t,const float,const float,const float)': overloaded member function not found in 'NAtracDEnc::NAtrac3::TAtrac3BitStreamWriter'
+C:\Users\Igland\Antigravity\Ghidra\atracdenc\src\atrac\at3\atrac3_bitstream.h(42): note: see declaration of 'NAtracDEnc::NAtrac3::TAtrac3BitStreamWriter'
+NMAKE : fatal error U1077: 'C:\Users\Igland\AppData\Local\Programs\Python\Python310\Lib\site-packages\cmake\data\bin\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\atracdenc_impl.dir\atrac\at3\atrac3_bitstream.cpp.obj.d --working-dir=C:\Users\Igland\Antigravity\Ghidra\atracdenc\build\src --filter-prefix="Note: including file: " -- C:\PROGRA~2\MICROS~2\2022\BUILDT~1\VC\Tools\MSVC\1444~1.352\bin\Hostx64\x64\cl.exe @C:\Users\Igland\AppData\Local\Temp\nmD948.tmp' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f src\CMakeFiles\atracdenc_impl.dir\build.make /nologo -SL                 src\CMakeFiles\atracdenc_impl.dir\build' : return code '0x2'
+Stop.
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.

@@ -1,0 +1,96 @@
+Map (0, 1, 2, 3) | Mirrors (False, False, True, True) => atracdenc (with Sony Decode) SNR: 4.4761 dB
+Map (0, 1, 2, 3) | Mirrors (False, False, False, False) => atracdenc (with Sony Decode) SNR: 4.4761 dB
+Map (0, 1, 2, 3) | Mirrors (False, True, False, False) => atracdenc (with Sony Decode) SNR: 4.4761 dB
+Map (0, 1, 2, 3) | Mirrors (False, False, False, True) => atracdenc (with Sony Decode) SNR: 4.4761 dB
+Map (0, 1, 2, 3) | Mirrors (False, True, False, True) => atracdenc (with Sony Decode) SNR: 4.4761 dB
+Map (0, 1, 2, 3) | Mirrors (False, False, True, False) => atracdenc (with Sony Decode) SNR: 4.4761 dB
+Map (0, 1, 2, 3) | Mirrors (False, True, True, False) => atracdenc (with Sony Decode) SNR: 4.4795 dB
+Map (0, 1, 2, 3) | Mirrors (False, False, True, True) => atracdenc (with Sony Decode) SNR: 4.4795 dB
+Map (0, 1, 2, 3) | Mirrors (False, True, True, True) => atracdenc (with Sony Decode) SNR: 4.4795 dB
+Map (0, 1, 2, 3) | Mirrors (False, True, False, False) => atracdenc (with Sony Decode) SNR: 4.4795 dB
+Map (0, 1, 2, 3) | Mirrors (True, False, False, False) => atracdenc (with Sony Decode) SNR: 4.4795 dB
+Map (0, 1, 2, 3) | Mirrors (True, False, False, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 2, 3) | Mirrors (False, True, False, True) => atracdenc (with Sony Decode) SNR: 4.4795 dB
+Map (0, 1, 2, 3) | Mirrors (True, False, True, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 2, 3) | Mirrors (False, True, True, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 2, 3) | Mirrors (False, True, True, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 2, 3) | Mirrors (True, False, False, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 2, 3) | Mirrors (True, False, False, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 2, 3) | Mirrors (True, False, True, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 2, 3) | Mirrors (True, False, True, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 2, 3) | Mirrors (True, True, False, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 2, 3) | Mirrors (True, True, False, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 2, 3) | Mirrors (True, True, True, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 2, 3) | Mirrors (True, True, True, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (False, False, False, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (False, False, False, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (False, False, True, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (False, False, True, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (False, True, False, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (False, True, False, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (False, True, True, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (False, True, True, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (True, False, False, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (True, False, False, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (True, False, True, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (True, False, True, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (True, True, False, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (True, True, False, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (True, True, True, False) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+
+Map (0, 1, 3, 2) | Mirrors (True, True, True, True) => BUILD ERROR: U1077: '"C:\PROGRA~2\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\nmake.exe" -s -f CMakeFiles\Makefile2 /nologo -LS                 all' : return code '0x2'
+Stop.
+

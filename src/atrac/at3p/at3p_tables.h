@@ -42,6 +42,7 @@ struct THuffTables {
 };
 
 struct TScaleTable {
+    static void EnsureInitialized() {}
 
     class TBlockSizeMod {
     public:

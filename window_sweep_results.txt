@@ -1,0 +1,80 @@
+Window Offset -4:
+Input:
+ Filename: quality_verify_v2\orig.wav
+ Channels: 2
+ SampleRate: 44100
+ Duration (sec): 5
+Output:
+ Filename: quality_verify_v2\encoded_atracdenc.at3
+ Codec: ATRAC3
+ Container: AT3 (RIFF)
+ Bitrate: 132300
+RUNTIME CONFIG: Mapping={0,6,4,2} Signs={1.0,1.0,1.0,1.0} Delays={0,0,0,0} Mirroring={0,1,0,1}
+Entering process loop...
+\  1% done
+|  3% done
+/  5% done
+-  7% done
+\  9% done
+|  11% done
+/  13% done
+-  14% done
+\  16% done
+|  18% done
+/  20% done
+-  22% done
+\  24% done
+|  26% done
+/  27% done
+-  29% done
+\  31% done
+|  33% done
+/  35% done
+-  37% done
+\  39% done
+|  40% done
+/  42% done
+-  44% done
+\  46% done
+|  48% done
+/  50% done
+-  52% done
+\  53% done
+|  55% done
+/  57% done
+-  59% done
+\  61% done
+|  63% done
+/  65% done
+-  66% done
+\  68% done
+|  70% done
+/  72% done
+-  74% done
+\  76% done
+|  78% done
+/  79% done
+-  81% done
+\  83% done
+|  85% done
+/  87% done
+-  89% done
+\  91% done
+|  92% done
+/  94% done
+-  96% done
+\  98% done
+
+Done
+Decoding 132 kbps (ATRAC3)
+Decoded Bytes    =   82944 Bytes@216frames(ave=384bytes)
+Generating frequency sweep (log chirp)...
+Encoding with atracdenc LP2...
+Decoding with Sony at3tool.exe for verification...
+Checking alignment and SNR...
+----------------------------------------
+atracdenc (with Sony Decode) SNR: 1.7908 dB
+Best delay (lag): 132 samples
+----------------------------------------
+Note: SNR is positive but below target 57 dB.
+

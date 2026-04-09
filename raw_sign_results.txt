@@ -1,0 +1,13 @@
+Signs (1, 1, 1, 1) => BUILD ERROR
+Signs (1, 1, 1, -1) => BUILD ERROR
+Signs (1, 1, -1, 1) => BUILD ERROR
+Signs (1, 1, -1, -1) => BUILD ERROR
+Signs (1, -1, 1, 1) => BUILD ERROR
+Signs (1, -1, 1, -1) => BUILD ERROR
+Signs (1, -1, -1, 1) => BUILD ERROR
+Signs (1, -1, -1, -1) => BUILD ERROR
+Signs (-1, 1, 1, 1) => BUILD ERROR
+Signs (-1, 1, 1, -1) => BUILD ERROR
+Signs (-1, 1, -1, 1) => BUILD ERROR
+Signs (-1, 1, -1, -1) => BUILD ERROR
+Signs (-1, -1, 1, 1) => BUILD ERROR
