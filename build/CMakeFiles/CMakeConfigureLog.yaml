@@ -1204,6 +1204,19 @@ events:
       Detecting CXX compiler /showIncludes prefix:
         main.c
         Note: including file: C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\ShowIncludes\\foo.h
+        C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\ShowIncludes\\main.c : fatal error C1083: Cannot open compiler generated file: 'C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\ShowIncludes\\main.obj': Permission denied
+        
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1347 (message)"
+      - "C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:250 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/share/cmake-4.3/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Detecting CXX compiler /showIncludes prefix:
+        main.c
+        Note: including file: C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\ShowIncludes\\foo.h
         
       Found prefix "Note: including file: "
   -
@@ -1593,8 +1606,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-hcgc2x"
-      binary: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-hcgc2x"
+      source: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-s7pdvd"
+      binary: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-s7pdvd"
     cmakeVariables:
       CMAKE_CXX_STDLIB_MODULES_JSON: ""
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
@@ -1604,28 +1617,28 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-hcgc2x'
+        Change Dir: 'C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-s7pdvd'
         
-        Run Build Command(s): C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/bin/cmake.exe -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_b9a9e\\fast
-        	"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_b9a9e.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_b9a9e.dir\\build
-        Building C object CMakeFiles/cmTC_b9a9e.dir/CMakeCCompilerABI.c.obj
-        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_b9a9e.dir\\CMakeCCompilerABI.c.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hcgc2x --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm7576.tmp
+        Run Build Command(s): C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/bin/cmake.exe -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_727bb\\fast
+        	"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_727bb.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_727bb.dir\\build
+        Building C object CMakeFiles/cmTC_727bb.dir/CMakeCCompilerABI.c.obj
+        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_727bb.dir\\CMakeCCompilerABI.c.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s7pdvd --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm15BC.tmp
         CMakeCCompilerABI.c
-        Linking C executable cmTC_b9a9e.exe
-        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1944 --intdir=CMakeFiles\\cmTC_b9a9e.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_b9a9e.dir\\objects1.rsp @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm75E4.tmp
+        Linking C executable cmTC_727bb.exe
+        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1944 --intdir=CMakeFiles\\cmTC_727bb.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_727bb.dir\\objects1.rsp @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm1744.tmp
         Visual Studio Incremental Link with embedded manifests
-        Create CMakeFiles\\cmTC_b9a9e.dir/manifest.rc
-        Create empty: CMakeFiles\\cmTC_b9a9e.dir/embed.manifest
+        Create CMakeFiles\\cmTC_727bb.dir/manifest.rc
+        Create empty: CMakeFiles\\cmTC_727bb.dir/embed.manifest
         RC Pass 1:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_b9a9e.dir/manifest.res CMakeFiles\\cmTC_b9a9e.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_727bb.dir/manifest.res CMakeFiles\\cmTC_727bb.dir/manifest.rc
         LINK Pass 1:
-        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_b9a9e.dir\\objects1.rsp /out:cmTC_b9a9e.exe /implib:cmTC_b9a9e.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hcgc2x\\cmTC_b9a9e.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_b9a9e.dir/intermediate.manifest CMakeFiles\\cmTC_b9a9e.dir/manifest.res
+        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_727bb.dir\\objects1.rsp /out:cmTC_727bb.exe /implib:cmTC_727bb.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s7pdvd\\cmTC_727bb.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_727bb.dir/intermediate.manifest CMakeFiles\\cmTC_727bb.dir/manifest.res
         MT:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_b9a9e.dir/intermediate.manifest /out:CMakeFiles\\cmTC_b9a9e.dir/embed.manifest /notify_update
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_727bb.dir/intermediate.manifest /out:CMakeFiles\\cmTC_727bb.dir/embed.manifest /notify_update
         RC Pass 2:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_b9a9e.dir/manifest.res CMakeFiles\\cmTC_b9a9e.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_727bb.dir/manifest.res CMakeFiles\\cmTC_727bb.dir/manifest.rc
         FINAL LINK:
-        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_b9a9e.dir\\objects1.rsp /out:cmTC_b9a9e.exe /implib:cmTC_b9a9e.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hcgc2x\\cmTC_b9a9e.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_b9a9e.dir/intermediate.manifest CMakeFiles\\cmTC_b9a9e.dir/manifest.res
+        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_727bb.dir\\objects1.rsp /out:cmTC_727bb.exe /implib:cmTC_727bb.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s7pdvd\\cmTC_727bb.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_727bb.dir/intermediate.manifest CMakeFiles\\cmTC_727bb.dir/manifest.res
         
       exitCode: 0
   -
@@ -1665,8 +1678,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-smzr8o"
-      binary: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-smzr8o"
+      source: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-1g62kf"
+      binary: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-1g62kf"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
@@ -1677,28 +1690,28 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-smzr8o'
+        Change Dir: 'C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-1g62kf'
         
-        Run Build Command(s): C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/bin/cmake.exe -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_ce95d\\fast
-        	"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_ce95d.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_ce95d.dir\\build
-        Building CXX object CMakeFiles/cmTC_ce95d.dir/CMakeCXXCompilerABI.cpp.obj
-        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_ce95d.dir\\CMakeCXXCompilerABI.cpp.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-smzr8o --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm7B42.tmp
+        Run Build Command(s): C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/bin/cmake.exe -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_39df5\\fast
+        	"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_39df5.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_39df5.dir\\build
+        Building CXX object CMakeFiles/cmTC_39df5.dir/CMakeCXXCompilerABI.cpp.obj
+        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_39df5.dir\\CMakeCXXCompilerABI.cpp.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-1g62kf --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm1A60.tmp
         CMakeCXXCompilerABI.cpp
-        Linking CXX executable cmTC_ce95d.exe
-        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1944 --intdir=CMakeFiles\\cmTC_ce95d.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_ce95d.dir\\objects1.rsp @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm7BB1.tmp
+        Linking CXX executable cmTC_39df5.exe
+        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1944 --intdir=CMakeFiles\\cmTC_39df5.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_39df5.dir\\objects1.rsp @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm1ACE.tmp
         Visual Studio Incremental Link with embedded manifests
-        Create CMakeFiles\\cmTC_ce95d.dir/manifest.rc
-        Create empty: CMakeFiles\\cmTC_ce95d.dir/embed.manifest
+        Create CMakeFiles\\cmTC_39df5.dir/manifest.rc
+        Create empty: CMakeFiles\\cmTC_39df5.dir/embed.manifest
         RC Pass 1:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_ce95d.dir/manifest.res CMakeFiles\\cmTC_ce95d.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_39df5.dir/manifest.res CMakeFiles\\cmTC_39df5.dir/manifest.rc
         LINK Pass 1:
-        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_ce95d.dir\\objects1.rsp /out:cmTC_ce95d.exe /implib:cmTC_ce95d.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-smzr8o\\cmTC_ce95d.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_ce95d.dir/intermediate.manifest CMakeFiles\\cmTC_ce95d.dir/manifest.res
+        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_39df5.dir\\objects1.rsp /out:cmTC_39df5.exe /implib:cmTC_39df5.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-1g62kf\\cmTC_39df5.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_39df5.dir/intermediate.manifest CMakeFiles\\cmTC_39df5.dir/manifest.res
         MT:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_ce95d.dir/intermediate.manifest /out:CMakeFiles\\cmTC_ce95d.dir/embed.manifest /notify_update
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_39df5.dir/intermediate.manifest /out:CMakeFiles\\cmTC_39df5.dir/embed.manifest /notify_update
         RC Pass 2:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_ce95d.dir/manifest.res CMakeFiles\\cmTC_ce95d.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_39df5.dir/manifest.res CMakeFiles\\cmTC_39df5.dir/manifest.rc
         FINAL LINK:
-        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_ce95d.dir\\objects1.rsp /out:cmTC_ce95d.exe /implib:cmTC_ce95d.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-smzr8o\\cmTC_ce95d.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_ce95d.dir/intermediate.manifest CMakeFiles\\cmTC_ce95d.dir/manifest.res
+        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_39df5.dir\\objects1.rsp /out:cmTC_39df5.exe /implib:cmTC_39df5.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-1g62kf\\cmTC_39df5.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_39df5.dir/intermediate.manifest CMakeFiles\\cmTC_39df5.dir/manifest.res
         
       exitCode: 0
   -
@@ -1740,8 +1753,8 @@ events:
     checks:
       - "Performing Test flag_supported"
     directories:
-      source: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-p7hbqw"
-      binary: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-p7hbqw"
+      source: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-t4719a"
+      binary: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-t4719a"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc -g -fno-omit-frame-pointer"
       CMAKE_CXX_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
@@ -1752,30 +1765,30 @@ events:
       variable: "flag_supported"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-p7hbqw'
+        Change Dir: 'C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-t4719a'
         
-        Run Build Command(s): C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/bin/cmake.exe -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_9bb16\\fast
-        	"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_9bb16.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_9bb16.dir\\build
-        Building CXX object CMakeFiles/cmTC_9bb16.dir/src.cxx.obj
-        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_9bb16.dir\\src.cxx.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p7hbqw --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm7E9E.tmp
+        Run Build Command(s): C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/bin/cmake.exe -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_02064\\fast
+        	"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_02064.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_02064.dir\\build
+        Building CXX object CMakeFiles/cmTC_02064.dir/src.cxx.obj
+        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_02064.dir\\src.cxx.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t4719a --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm1F90.tmp
         cl : Command line warning D9002 : ignoring unknown option '-g'
         cl : Command line warning D9002 : ignoring unknown option '-fno-omit-frame-pointer'
         src.cxx
-        Linking CXX executable cmTC_9bb16.exe
-        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1944 --intdir=CMakeFiles\\cmTC_9bb16.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_9bb16.dir\\objects1.rsp @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm7F1C.tmp
+        Linking CXX executable cmTC_02064.exe
+        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1944 --intdir=CMakeFiles\\cmTC_02064.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_02064.dir\\objects1.rsp @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm200E.tmp
         Visual Studio Incremental Link with embedded manifests
-        Create CMakeFiles\\cmTC_9bb16.dir/manifest.rc
-        Create empty: CMakeFiles\\cmTC_9bb16.dir/embed.manifest
+        Create CMakeFiles\\cmTC_02064.dir/manifest.rc
+        Create empty: CMakeFiles\\cmTC_02064.dir/embed.manifest
         RC Pass 1:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_9bb16.dir/manifest.res CMakeFiles\\cmTC_9bb16.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_02064.dir/manifest.res CMakeFiles\\cmTC_02064.dir/manifest.rc
         LINK Pass 1:
-        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_9bb16.dir\\objects1.rsp /out:cmTC_9bb16.exe /implib:cmTC_9bb16.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p7hbqw\\cmTC_9bb16.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_9bb16.dir/intermediate.manifest CMakeFiles\\cmTC_9bb16.dir/manifest.res
+        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_02064.dir\\objects1.rsp /out:cmTC_02064.exe /implib:cmTC_02064.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t4719a\\cmTC_02064.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_02064.dir/intermediate.manifest CMakeFiles\\cmTC_02064.dir/manifest.res
         MT:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_9bb16.dir/intermediate.manifest /out:CMakeFiles\\cmTC_9bb16.dir/embed.manifest /notify_update
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_02064.dir/intermediate.manifest /out:CMakeFiles\\cmTC_02064.dir/embed.manifest /notify_update
         RC Pass 2:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_9bb16.dir/manifest.res CMakeFiles\\cmTC_9bb16.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_02064.dir/manifest.res CMakeFiles\\cmTC_02064.dir/manifest.rc
         FINAL LINK:
-        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_9bb16.dir\\objects1.rsp /out:cmTC_9bb16.exe /implib:cmTC_9bb16.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p7hbqw\\cmTC_9bb16.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_9bb16.dir/intermediate.manifest CMakeFiles\\cmTC_9bb16.dir/manifest.res
+        C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_02064.dir\\objects1.rsp /out:cmTC_02064.exe /implib:cmTC_02064.lib /pdb:C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t4719a\\cmTC_02064.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_02064.dir/intermediate.manifest CMakeFiles\\cmTC_02064.dir/manifest.res
         
       exitCode: 0
   -
@@ -1789,8 +1802,8 @@ events:
     checks:
       - "Performing Test flag_supported"
     directories:
-      source: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-e3dyfd"
-      binary: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-e3dyfd"
+      source: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-4klg48"
+      binary: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-4klg48"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc -g -fno-omit-frame-pointer"
       CMAKE_CXX_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
@@ -1801,16 +1814,16 @@ events:
       variable: "flag_supported"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-e3dyfd'
+        Change Dir: 'C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-4klg48'
         
-        Run Build Command(s): C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/bin/cmake.exe -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_60112\\fast
-        	"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_60112.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_60112.dir\\build
-        Building CXX object CMakeFiles/cmTC_60112.dir/src.cxx.obj
-        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_60112.dir\\src.cxx.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-e3dyfd --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm815D.tmp
+        Run Build Command(s): C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/bin/cmake.exe -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_6a1f0\\fast
+        	"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_6a1f0.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_6a1f0.dir\\build
+        Building CXX object CMakeFiles/cmTC_6a1f0.dir/src.cxx.obj
+        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_6a1f0.dir\\src.cxx.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4klg48 --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm226E.tmp
         cl : Command line error D8021 : invalid numeric argument '/Wextra'
-        NMAKE : fatal error U1077: 'C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_60112.dir\\src.cxx.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-e3dyfd --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm815D.tmp' : return code '0x2'
+        NMAKE : fatal error U1077: 'C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_6a1f0.dir\\src.cxx.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4klg48 --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm226E.tmp' : return code '0x2'
         Stop.
-        NMAKE : fatal error U1077: '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_60112.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_60112.dir\\build' : return code '0x2'
+        NMAKE : fatal error U1077: '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_6a1f0.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_6a1f0.dir\\build' : return code '0x2'
         Stop.
         
       exitCode: 2
@@ -1822,8 +1835,8 @@ events:
     checks:
       - "Looking for include file alloca.h"
     directories:
-      source: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-nfro6n"
-      binary: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-nfro6n"
+      source: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-z0wu27"
+      binary: "C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-z0wu27"
     cmakeVariables:
       CMAKE_CXX_STDLIB_MODULES_JSON: ""
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
@@ -1834,17 +1847,17 @@ events:
       variable: "HAVE_ALLOCA_H"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-nfro6n'
+        Change Dir: 'C:/Users/Igland/Antigravity/Ghidra/atracdenc/build/CMakeFiles/CMakeScratch/TryCompile-z0wu27'
         
-        Run Build Command(s): C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/bin/cmake.exe -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_d64fe\\fast
-        	"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_d64fe.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_d64fe.dir\\build
-        Building C object CMakeFiles/cmTC_d64fe.dir/HAVE_ALLOCA_H.c.obj
-        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_d64fe.dir\\HAVE_ALLOCA_H.c.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nfro6n --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm8295.tmp
+        Run Build Command(s): C:/Users/Igland/AppData/Local/Programs/Python/Python310/Lib/site-packages/cmake/data/bin/cmake.exe -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_917ab\\fast
+        	"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_917ab.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_917ab.dir\\build
+        Building C object CMakeFiles/cmTC_917ab.dir/HAVE_ALLOCA_H.c.obj
+        	C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_917ab.dir\\HAVE_ALLOCA_H.c.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-z0wu27 --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm23B7.tmp
         HAVE_ALLOCA_H.c
-        C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nfro6n\\HAVE_ALLOCA_H.c(2): fatal error C1083: Cannot open include file: 'alloca.h': No such file or directory
-        NMAKE : fatal error U1077: 'C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_d64fe.dir\\HAVE_ALLOCA_H.c.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nfro6n --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm8295.tmp' : return code '0x2'
+        C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-z0wu27\\HAVE_ALLOCA_H.c(2): fatal error C1083: Cannot open include file: 'alloca.h': No such file or directory
+        NMAKE : fatal error U1077: 'C:\\Users\\Igland\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cmake\\data\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_917ab.dir\\HAVE_ALLOCA_H.c.obj.d --working-dir=C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc\\build\\CMakeFiles\\CMakeScratch\\TryCompile-z0wu27 --filter-prefix="Note: including file: " -- C:\\PROGRA~2\\MICROS~2\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\Igland\\AppData\\Local\\Temp\\nm23B7.tmp' : return code '0x2'
         Stop.
-        NMAKE : fatal error U1077: '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_d64fe.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_d64fe.dir\\build' : return code '0x2'
+        NMAKE : fatal error U1077: '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_917ab.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_917ab.dir\\build' : return code '0x2'
         Stop.
         
       exitCode: 2

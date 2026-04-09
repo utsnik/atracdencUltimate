@@ -304,6 +304,8 @@ std::pair<uint8_t, vector<uint32_t>> TAtrac3BitStreamWriter::CreateAllocation(co
     if (virtuallySilent) {
         precisionPerEachBlocks.clear();
         mode = 0; // Force VLC mode for silence
+    } else {
+        mode = 1; // Sony Forensic Alignment: Force CLC for active signals
     }
     
     //std::cerr << "==" << std::endl;

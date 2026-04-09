@@ -340,7 +340,7 @@ TPCMEngine::TProcessLambda TAtrac3Encoder::GetLambda()
                 CreateSubbandInfo(p, channel, &sce->SubbandInfo);
             }
 
-            if (!Params.NoTonalComponents) {
+            if (false && !Params.NoTonalComponents) {
                 // Correctly size dummyAlloc to 32 to ensure we stay within bounds for all BFUs
                 std::vector<uint32_t> dummyAlloc(32, 4); 
                 for (int band = 0; band < 4; ++band) {
