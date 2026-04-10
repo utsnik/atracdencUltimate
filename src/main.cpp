@@ -470,7 +470,7 @@ int main_(int argc, char* const* argv)
             {
                 using NAtrac3::TAtrac3Data;
                 wavIO = OpenWavFile(inFile);
-                NAtrac3::TAtrac3EncoderSettings encoderSettings(bitrate * 1024, noGainControl,
+                NAtrac3::TAtrac3EncoderSettings encoderSettings((bitrate == 132 ? 132300 : bitrate * 1024), noGainControl,
                                                                 noTonalComponents, wavIO->GetChannelNum(), bfuIdxConst);
                 PrepareAtrac3Encoder(inFile, outFile, noStdOut, std::move(encoderSettings),
                 &totalSamples, wavIO, &pcmEngine, &atracProcessor);

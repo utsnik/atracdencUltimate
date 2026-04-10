@@ -45,11 +45,21 @@ float TAtrac3Data::GainInterpolation[31];
 static const TAtrac3Data Atrac3Data;
 
 const TContainerParams* TAtrac3Data::GetContainerParamsForBitrate(uint32_t bitrate) {
-    // Set default to LP2 mode
-    if (bitrate == 0) {
-        bitrate = 132300;
+    if (bitrate == 0) bitrate = 132300;
+    
+    const TContainerParams* best = &ContainerParams[0];
+    uint32_t minDiff = 0xFFFFFFFF;
+    
+    for (int i = 0; i < 8; ++i) {
+        uint32_t diff = (bitrate > ContainerParams[i].Bitrate) ? 
+                        (bitrate - ContainerParams[i].Bitrate) : 
+                        (ContainerParams[i].Bitrate - bitrate);
+        if (diff < minDiff) {
+            minDiff = diff;
+            best = &ContainerParams[i];
+        }
     }
-    return std::lower_bound(ContainerParams, ContainerParams+8, bitrate);
+    return best;
 }
 
 } // namespace NAtrac3

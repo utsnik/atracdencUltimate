@@ -310,7 +310,7 @@ TPCMEngine::TProcessLambda TAtrac3Encoder::GetLambda()
             float src[TAtrac3Data::NumSamples];
 
             for (size_t i = 0; i < TAtrac3Data::NumSamples; ++i) {
-                src[i] = data[i * meta.Channels  + channel] / 4.0;
+                src[i] = data[i * meta.Channels  + channel] / 2.0;
             }
 
             {

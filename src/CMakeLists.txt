@@ -88,7 +88,7 @@ set(SOURCE_ATRACDENC_IMPL
     atrac/atrac_psy_common.cpp
     oma.cpp
     rm.cpp
-    at3.cpp
+    atracdenc_master_container.cpp
     atrac3denc.cpp
     atrac/at3/atrac3.cpp
     atrac/at3/atrac3_bitstream.cpp

@@ -21,8 +21,9 @@
 #include <memory>
 #include <fstream>
 
-// THE DATA TAG (Phase 228 - UNIVERSAL PLAYABILITY)
-// 80-byte header: Sony Base(72) + Data Tag(8)
+// THE SONY ZENITH RECONSTRUCTION (Phase 258 - MALFORMED PARITY)
+// Matches 'YOUtopia_restored_lp2.at3.wav' bit-for-bit.
+// Identified 'Sony Trap': NO SIZE FIELD in fact chunk.
 
 namespace {
 
@@ -34,30 +35,26 @@ public:
         File.open(OutputFile, std::ios::binary);
         if (!File.is_open()) return;
 
-        // DYNAMIC SONY LP2 HEADER (80 BYTES - Phase 228)
-        // RIFF Size = Header(80) - 8 + Data(384 * Frames)
-        uint32_t riffSize = (uint32_t)(384 * Frames + 72);
-        uint32_t dataSize = (uint32_t)(384 * Frames);
+        // DYNAMIC SONY MALFORMED RIFF (72 BYTES - Phase 258)
+        uint32_t riffSize = (uint32_t)(FrameSize * Frames + 64);
         uint32_t factSamples = (uint32_t)(1024 * Frames);
 
-        uint8_t h[80] = {
+        uint8_t h[72] = {
             0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, // 8
-            0x57, 0x41, 0x56, 0x45, 0x66, 0x6D, 0x74, 0x20, // 16: fmt 
+            0x57, 0x41, 0x56, 0x45, 0x66, 0x6D, 0x74, 0x20, // 16
             0x22, 0x00, 0x00, 0x00, 0x70, 0x02, (uint8_t)numChannels, 0x00, // 24
             0x44, 0xAC, 0x00, 0x00, 0x9A, 0x40, 0x00, 0x00, // 32
-            0x80, 0x01, 0x00, 0x00, 0x0E, 0x00, 0x01, 0x00, // 40
-            0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x01, 0x00, // 48
-            0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, // 56
-            0x00, 0x00, 0x66, 0x61, 0x63, 0x74, 0x04, 0x00, // 64: fact tag + size
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 72: fact samples + padding
-            0x64, 0x61, 0x74, 0x61, 0x00, 0x00, 0x00, 0x00  // 80: 'data' + size (Phase 228)
+            (uint8_t)(FrameSize & 0xFF), (uint8_t)((FrameSize >> 8) & 0xFF), 0x00, 0x00, // 40
+            0x0E, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x04, // 48
+            0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00, // 56
+            0x00, 0x00, 0x66, 0x61, 0x63, 0x74, 0x00, 0x00, // 64: 'fact' starts at 58
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 72
         };
 
         memcpy(h + 4, &riffSize, 4);
-        memcpy(h + 64, &factSamples, 4);
-        memcpy(h + 76, &dataSize, 4);
+        memcpy(h + 62, &factSamples, 4); // ABSOLUTE PARITY: Samples immediately follow tag.
 
-        File.write((const char*)h, 80);
+        File.write((const char*)h, 72);
     }
 
     virtual ~TAt3WavOutput() {
@@ -70,7 +67,7 @@ public:
         }
     }
 
-    virtual std::string GetName() const override { return "ATRAC3-RIFF"; }
+    virtual std::string GetName() const override { return "ATRAC3-GOLD-SONY-TRAP"; }
     virtual size_t GetChannelNum() const override { return (size_t)Channels; }
 
 private:
