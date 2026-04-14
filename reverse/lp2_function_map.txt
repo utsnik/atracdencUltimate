@@ -23,3 +23,6 @@ RVA 0x3ce60 -> FUN_0043ce60 (size: 24)
 RVA 0x3ce80 -> FUN_0043ce80 (size: 41)
 RVA 0x3ea90 -> FUN_0043ea90 (size: 150)
 RVA 0x3eb30 -> FUN_0043eb30 (size: 62)
+RVA 0x3e7a0 -> FUN_0043e7a0
+RVA 0x3e8c0 -> FUN_0043e8c0
+RVA 0x3ec20 -> FUN_0043ec20
