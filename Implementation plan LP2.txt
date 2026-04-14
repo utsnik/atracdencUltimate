@@ -1,0 +1,115 @@
+LP2 Parity-First Heuristic Overhaul
+Summary
+Build a new accuracy-first LP2 encoding path that keeps ATRAC3/LP2 bitstream compliance for MiniDisc hardware, but replaces the current shallow heuristics with a slower, more perceptually informed decision engine. The goal is to reach Sony parity first, then create headroom to surpass it using better heuristics and more compute, without ML and without changing decoder expectations.
+
+Key Changes
+1. Add a new parity-focused analysis pipeline
+Introduce a new internal analysis stage that runs before final bit allocation and produces per-frame, per-band features:
+masking threshold
+tonality / noisiness score
+transient onset / decay score
+HF salience / sibilance risk
+stereo coherence / decorrelation score
+frame-to-frame stability state
+Base this on a deeper psychoacoustic model than the current ATH+loudness logic:
+spectral spreading across neighboring bands
+temporal masking with short look-behind / look-ahead
+stronger HF noise visibility estimation
+explicit “artifact risk” tagging for sibilants, cymbals, applause, and reverb tails
+Keep the current fast path intact; add a new internal parity path as the default for tuning work.
+2. Replace loudness-only joint stereo allocation
+Replace the current frame-wide M/S byte shift logic with a per-band stereo preservation policy.
+Compute stereo allocation from:
+mid/side energy balance
+inter-channel coherence
+HF prominence
+transient risk
+tonal stability
+Add hysteresis so stereo decisions do not flap frame-to-frame.
+Keep matrixing and bitstream syntax compliant; only change encoder decisions.
+3. Upgrade LP2 bit allocation into a perceptual search problem
+Replace the current fixed-formula allocator with a constrained search that proposes a small legal candidate set per risky frame.
+Candidate dimensions must include:
+BFU allocation bias
+HF protection bias
+gain-control aggressiveness
+M/S byte shift bias
+tonal preservation bias
+For low-risk frames, keep a cheap deterministic path.
+For medium/high-risk frames, run decode-in-the-loop local search:
+encode a small candidate set
+decode candidates
+score perceptual error
+keep the best legal frame
+Score using a weighted objective that prioritizes:
+HF preservation
+transient sharpness
+stereo stability
+low audibility of quantization noise
+Accuracy is prioritized over speed; it is acceptable for parity mode to be much slower than the current encoder.
+4. Rework gain/transient control into a stability-aware controller
+Replace threshold-only transient behavior with a richer attack/sustain/decay classifier.
+Use look-ahead and prior-frame context to separate:
+true attacks that need protection
+noisy HF that should not trigger aggressive gain modulation
+near-silent frames that should not spend bits
+sustained content that benefits from stable gain behavior
+Add continuity rules so gain points do not oscillate across adjacent frames.
+Preserve current “no gain” fallback as a candidate in the new search, not as a separate manual mode.
+5. Improve tonal handling after stereo/gain parity work lands
+Replace simple one-frame local peak picking with:
+harmonic grouping within a frame
+continuity tracking across neighboring frames
+stronger distinction between stable tones and noisy pseudo-tones
+Keep this as the fourth milestone, not the first, because stereo, gain, and allocation are more likely to close the Sony gap faster.
+6. Extend tooling and decision visibility
+Extend the existing LP2 wrapper / search tooling to support the new parity path and emit structured logs for:
+per-frame risk classification
+masking thresholds
+chosen stereo policy
+candidate scores
+final winning decision
+Keep baseline comparison tooling centered on Sony decode parity so every tuning pass is measurable.
+Preserve current listening artifacts and best-known outputs as fixed baselines.
+Public / Operator Interfaces
+Add a new encoder quality mode for LP2 parity work, exposed via the existing tooling as a slow, quality-first mode.
+Add a structured decision-log output format for parity runs so frame decisions can be inspected without reverse engineering each run.
+Keep current fast/manual modes available for regression comparison; do not remove existing knobs yet.
+Test Plan
+Corpus
+Use a fixed LP2 parity corpus:
+
+YOUtopia_source.wav
+chirp / sweep material
+sibilant-heavy vocal material
+cymbal / applause / reverb-tail material
+sharp transient material such as clicks / castanet-style attacks
+simple tones and noise bursts for control cases
+Objective checks
+For every candidate change, measure:
+
+full-band SNR
+HF proxy SNR
+stereo preservation metrics
+transient-window error around attacks
+frame stability metrics for gain/stereo flapping
+bitstream compliance and successful decode on the reference LP2 path
+Acceptance criteria
+Remain strict LP2 / MiniDisc-hardware compatible.
+Beat the current best parity candidate on YOUtopia.
+Reduce the Sony HF proxy gap on the parity corpus before chasing larger full-band gains.
+Do not accept changes that improve one killer sample while causing obvious stereo collapse or “whooley” degradation elsewhere.
+Subjective listening must confirm sharper S sounds, cleaner cymbals, and less hollow texture than the current baseline.
+Implementation Order
+Build the new psychoacoustic analysis outputs and frame-risk classifier.
+Replace loudness-only stereo allocation with per-band stereo policy plus hysteresis.
+Introduce decode-in-the-loop local search for risky frames only.
+Fold gain-control behavior into the search with improved transient classification.
+Revisit tonal handling with continuity tracking after parity improves on the main corpus.
+Retune weights using Sony baseline comparisons and listening passes.
+Assumptions And Defaults
+Scope is LP2 first; LP4 is explicitly out of scope for this plan.
+Speed is secondary to quality; multi-pass and local candidate search are allowed.
+No ML or neural components are part of this plan.
+The bitstream syntax, frame size, decoder-side interpretation, and hardware compatibility must remain unchanged.
+The new parity path should coexist with the current implementation until it clearly outperforms it.

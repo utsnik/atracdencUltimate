@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\chirp_20_20k_5s.wav",
+      "baseline_at3tool": {
+        "snr_db": 32.09440612792969,
+        "spectral_l1": 0.03598155738248788,
+        "lag": 0
+      },
+      "baseline_atrac": {
+        "snr_db": 1.0075656175613403,
+        "spectral_l1": 0.8737556480910976,
+        "lag": -2048
+      },
+      "ml_preemph": {
+        "snr_db": 0.4607144594192505,
+        "spectral_l1": 1.0752112876527724,
+        "lag": -2048
+      }
+    },
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\multitone_5s.wav",
+      "baseline_at3tool": {
+        "snr_db": 33.097084045410156,
+        "spectral_l1": 0.010978548021075406,
+        "lag": 0
+      },
+      "baseline_atrac": {
+        "snr_db": 1.2776875495910645,
+        "spectral_l1": 0.4126789083777212,
+        "lag": 2362
+      },
+      "ml_preemph": {
+        "snr_db": -2.9346752166748047,
+        "spectral_l1": 0.7719891481233558,
+        "lag": -2048
+      }
+    },
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\sine_1k_5s.wav",
+      "baseline_at3tool": {
+        "snr_db": 51.486045837402344,
+        "spectral_l1": 0.00017375762321108175,
+        "lag": 0
+      },
+      "baseline_atrac": {
+        "snr_db": 24.671594619750977,
+        "spectral_l1": 0.007900219568799272,
+        "lag": -2048
+      },
+      "ml_preemph": {
+        "snr_db": 6.581963539123535,
+        "spectral_l1": 0.36030136336542373,
+        "lag": -1960
+      }
+    },
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\transient_5s.wav",
+      "baseline_at3tool": {
+        "snr_db": 47.834354400634766,
+        "spectral_l1": 0.0007894566842000768,
+        "lag": 0
+      },
+      "baseline_atrac": {
+        "snr_db": 16.843055725097656,
+        "spectral_l1": 0.052333090759450585,
+        "lag": -1246
+      },
+      "ml_preemph": {
+        "snr_db": 5.067604064941406,
+        "spectral_l1": 0.23726511414404758,
+        "lag": -1547
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\chirp_20_20k_5s.wav",
+      "frames": 109
+    },
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\multitone_5s.wav",
+      "frames": 109
+    },
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\sine_1k_5s.wav",
+      "frames": 109
+    },
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\transient_5s.wav",
+      "frames": 109
+    }
+  ]
+}

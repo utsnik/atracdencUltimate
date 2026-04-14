@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\chirp_20_20k_5s.wav",
+      "at3tool_dec": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\out\\chirp_20_20k_5s.at3tool.dec.wav",
+      "atracdenc_dec": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\out\\mask_2\\chirp_20_20k_5s.atracdenc.dec.wav",
+      "frames": 423,
+      "lag_tool": 0,
+      "lag_atrac": -2048,
+      "snr_at3tool": 32.474853515625,
+      "snr_atrac": 1.0075656175613403
+    },
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\multitone_5s.wav",
+      "at3tool_dec": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\out\\multitone_5s.at3tool.dec.wav",
+      "atracdenc_dec": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\out\\mask_2\\multitone_5s.atracdenc.dec.wav",
+      "frames": 423,
+      "lag_tool": 0,
+      "lag_atrac": 2362,
+      "snr_at3tool": 33.125877380371094,
+      "snr_atrac": -1.2826067209243774
+    },
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\sine_1k_5s.wav",
+      "at3tool_dec": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\out\\sine_1k_5s.at3tool.dec.wav",
+      "atracdenc_dec": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\out\\mask_2\\sine_1k_5s.atracdenc.dec.wav",
+      "frames": 423,
+      "lag_tool": 0,
+      "lag_atrac": -2048,
+      "snr_at3tool": 53.28255081176758,
+      "snr_atrac": 24.671594619750977
+    },
+    {
+      "input": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\input\\transient_5s.wav",
+      "at3tool_dec": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\out\\transient_5s.at3tool.dec.wav",
+      "atracdenc_dec": "C:\\Users\\Igland\\Antigravity\\Ghidra\\ghidra\\reverse\\quality\\out\\mask_2\\transient_5s.atracdenc.dec.wav",
+      "frames": 425,
+      "lag_tool": 0,
+      "lag_atrac": -1246,
+      "snr_at3tool": 48.907325744628906,
+      "snr_atrac": 16.843055725097656
+    }
+  ]
+}

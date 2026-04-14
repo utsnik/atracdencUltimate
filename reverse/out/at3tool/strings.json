@@ -1,0 +1,652 @@
+[
+  {
+    "address": "0045115c",
+    "length": 32,
+    "value": " Loop Infomation was set twice\n"
+  },
+  {
+    "address": "0045117c",
+    "length": 31,
+    "value": "Loop Infomation was set twice\n"
+  },
+  {
+    "address": "0045119c",
+    "length": 8,
+    "value": "-repeat"
+  },
+  {
+    "address": "004511a4",
+    "length": 12,
+    "value": "-wholeloop"
+  },
+  {
+    "address": "004511c4",
+    "length": 59,
+    "value": "\t*** built w/ ATRAC3plus library version %d.%02d.%02d ***\n"
+  },
+  {
+    "address": "00451200",
+    "length": 54,
+    "value": "\t*** built w/ ATRAC3plus library version %d.%02d ***\n"
+  },
+  {
+    "address": "00451238",
+    "length": 53,
+    "value": "  -repeat N: repeating LOOP part N times(default 2)\n"
+  },
+  {
+    "address": "00451270",
+    "length": 77,
+    "value": "below options only affects to decoding mode(when not, they will be ignored)\n"
+  },
+  {
+    "address": "004512c0",
+    "length": 60,
+    "value": "  -d : decode to file1 to file2(16bit linear PCM wav file)\n"
+  },
+  {
+    "address": "00451300",
+    "length": 34,
+    "value": "  -wholeloop: set the whole loop\n"
+  },
+  {
+    "address": "00451328",
+    "length": 64,
+    "value": "             0 \u003c\u003d S \u003c S + %d \u003c\u003d E \u003c number of samples in file1\n"
+  },
+  {
+    "address": "00451368",
+    "length": 50,
+    "value": "             S and E must satisfy under conditon\n"
+  },
+  {
+    "address": "004513a0",
+    "length": 75,
+    "value": "             specify the loop end   point is E samples from the beginning\n"
+  },
+  {
+    "address": "004513f0",
+    "length": 75,
+    "value": "  -loop S E: specify the loop start point is S samples from the beginning\n"
+  },
+  {
+    "address": "0045143c",
+    "length": 36,
+    "value": "  -br N: specify the bitrate Nkbps\n"
+  },
+  {
+    "address": "00451460",
+    "length": 77,
+    "value": "below options only affects to encoding mode(when not, they will be ignored)\n"
+  },
+  {
+    "address": "004514b0",
+    "length": 66,
+    "value": "  -e : encode file1(16bit linear 44.1kHz PCM wav file) to file2 \n"
+  },
+  {
+    "address": "004514f4",
+    "length": 41,
+    "value": "Usage : at3tool [-\u003coption\u003e] file1 file2\n"
+  },
+  {
+    "address": "00451520",
+    "length": 91,
+    "value": "SCE CONFIDENTIAL \nCopyright(C) 2009 Sony Computer Entertainment Inc. All Rights Reserved.\n"
+  },
+  {
+    "address": "0045157c",
+    "length": 39,
+    "value": "SCEI ATRAC3plus Codec TOOL Version %s\n"
+  },
+  {
+    "address": "004515a4",
+    "length": 8,
+    "value": "3.0.0.0"
+  },
+  {
+    "address": "004515b0",
+    "length": 16,
+    "value": "cannot open %s\n"
+  },
+  {
+    "address": "004515e3",
+    "length": 45,
+    "value": "binput file is illegal file or over 2G Byte\n"
+  },
+  {
+    "address": "00451610",
+    "length": 67,
+    "value": "this program uses first smpl chunk (loopstart \u003d %d, loopend \u003d %d)\n"
+  },
+  {
+    "address": "00451654",
+    "length": 24,
+    "value": "file has %d smpl chunk\n"
+  },
+  {
+    "address": "00451687",
+    "length": 17,
+    "value": "Aunknown chunk\n"
+  },
+  {
+    "address": "00451698",
+    "length": 15,
+    "value": " (ATRAC3plus)\n"
+  },
+  {
+    "address": "004516a8",
+    "length": 11,
+    "value": " (ATRAC3)\n"
+  },
+  {
+    "address": "004516b4",
+    "length": 17,
+    "value": "Decoding %d kbps"
+  },
+  {
+    "address": "004516c8",
+    "length": 51,
+    "value": "Decoded Bytes    \u003d%8d Bytes@%dframes(ave\u003d%dbytes)\n"
+  },
+  {
+    "address": "004516fc",
+    "length": 13,
+    "value": "atrac_decode"
+  },
+  {
+    "address": "0045170c",
+    "length": 25,
+    "value": "atrac_get_buffer_request"
+  },
+  {
+    "address": "00451728",
+    "length": 18,
+    "value": "atrac_init_decode"
+  },
+  {
+    "address": "0045173c",
+    "length": 21,
+    "value": "atrac_set_codec_info"
+  },
+  {
+    "address": "00451754",
+    "length": 46,
+    "value": "loop length has to be larger than %d Samples\n"
+  },
+  {
+    "address": "00451784",
+    "length": 23,
+    "value": "too short loop length\n"
+  },
+  {
+    "address": "0045179c",
+    "length": 53,
+    "value": "0\u003c\u003d loopstart(%d) \u003c\u003d loopend(%d) \u003c Total Sample(%d)\n"
+  },
+  {
+    "address": "004517d4",
+    "length": 53,
+    "value": "your parametter doesn\u0027t satisfy under the condition\n"
+  },
+  {
+    "address": "0045180c",
+    "length": 45,
+    "value": "input file has to be larger than %d Samples\n"
+  },
+  {
+    "address": "0045183c",
+    "length": 22,
+    "value": "too short input file\n"
+  },
+  {
+    "address": "00451854",
+    "length": 62,
+    "value": "This program supports only 16bit Linear PCM in encoding mode\n"
+  },
+  {
+    "address": "00451894",
+    "length": 26,
+    "value": "Loop Position \u003d [%d, %d]\n"
+  },
+  {
+    "address": "004518b0",
+    "length": 17,
+    "value": "Encoding %d kbps"
+  },
+  {
+    "address": "004518c4",
+    "length": 18,
+    "value": "atrac_init_encode"
+  },
+  {
+    "address": "004518d8",
+    "length": 27,
+    "value": "atrac_set_encode_algorithm"
+  },
+  {
+    "address": "004518f4",
+    "length": 47,
+    "value": "can\u0027t allocate memory for input/output buffer\n"
+  },
+  {
+    "address": "00451924",
+    "length": 57,
+    "value": "Total Encoded Bytes    \u003d%8d Bytes@%dframes(ave\u003d%dbytes)\n"
+  },
+  {
+    "address": "00451960",
+    "length": 49,
+    "value": "Warning: imcomplete wav file(%d sample missing)\n"
+  },
+  {
+    "address": "00451994",
+    "length": 19,
+    "value": "atrac_flush_encode"
+  },
+  {
+    "address": "004519a8",
+    "length": 13,
+    "value": "atrac_encode"
+  },
+  {
+    "address": "004519b8",
+    "length": 29,
+    "value": "loopstart \u003d %d loopend \u003d %d\n"
+  },
+  {
+    "address": "004519d8",
+    "length": 58,
+    "value": "This program put -loop option over smpl chunk infomation\n"
+  },
+  {
+    "address": "00451a14",
+    "length": 53,
+    "value": "Loop Information is set -loop option and smpl chunk\n"
+  },
+  {
+    "address": "00451cfc",
+    "length": 20,
+    "value": "error code : %#x\n"
+  },
+  {
+    "address": "00451d10",
+    "length": 26,
+    "value": "Non fatal error occurred\n"
+  },
+  {
+    "address": "00451d2c",
+    "length": 25,
+    "value": "unknown return value %d\n"
+  },
+  {
+    "address": "00451d48",
+    "length": 21,
+    "value": "Finished abnormally\n"
+  },
+  {
+    "address": "00451d60",
+    "length": 21,
+    "value": "Error Occured in %s\n"
+  },
+  {
+    "address": "00451d78",
+    "length": 60,
+    "value": "bitrate \u003d %3d[kbps], Ch \u003d %1d[ch], Sampling Rate \u003d %5d[Hz]\n"
+  },
+  {
+    "address": "00451db8",
+    "length": 65,
+    "value": "This ATRAC3plus program supports only the following parameters\n\n"
+  },
+  {
+    "address": "00451dfc",
+    "length": 22,
+    "value": "Not Supported Param\n\n"
+  },
+  {
+    "address": "00451e14",
+    "length": 57,
+    "value": "BlockAlign \u003d %3d, Ch \u003d %1d[ch], Sampling Rate \u003d %5d[Hz]\n"
+  },
+  {
+    "address": "00451e50",
+    "length": 23,
+    "value": "Not Supported Parame\n\n"
+  },
+  {
+    "address": "004bc906",
+    "length": 7,
+    "value": "printf"
+  },
+  {
+    "address": "004bc910",
+    "length": 5,
+    "value": "atoi"
+  },
+  {
+    "address": "004bc918",
+    "length": 5,
+    "value": "exit"
+  },
+  {
+    "address": "004bc920",
+    "length": 7,
+    "value": "fclose"
+  },
+  {
+    "address": "004bc92a",
+    "length": 8,
+    "value": "fopen_s"
+  },
+  {
+    "address": "004bc934",
+    "length": 6,
+    "value": "fgetc"
+  },
+  {
+    "address": "004bc93c",
+    "length": 6,
+    "value": "fread"
+  },
+  {
+    "address": "004bc944",
+    "length": 6,
+    "value": "ftell"
+  },
+  {
+    "address": "004bc94c",
+    "length": 5,
+    "value": "feof"
+  },
+  {
+    "address": "004bc954",
+    "length": 6,
+    "value": "fseek"
+  },
+  {
+    "address": "004bc95c",
+    "length": 7,
+    "value": "fwrite"
+  },
+  {
+    "address": "004bc966",
+    "length": 5,
+    "value": "free"
+  },
+  {
+    "address": "004bc96e",
+    "length": 7,
+    "value": "malloc"
+  },
+  {
+    "address": "004bc978",
+    "length": 7,
+    "value": "memcpy"
+  },
+  {
+    "address": "004bc982",
+    "length": 7,
+    "value": "memset"
+  },
+  {
+    "address": "004bc98c",
+    "length": 8,
+    "value": "fprintf"
+  },
+  {
+    "address": "004bc996",
+    "length": 11,
+    "value": "__iob_func"
+  },
+  {
+    "address": "004bc9a4",
+    "length": 8,
+    "value": "memmove"
+  },
+  {
+    "address": "004bc9ae",
+    "length": 6,
+    "value": "_ftol"
+  },
+  {
+    "address": "004bc9b6",
+    "length": 6,
+    "value": "floor"
+  },
+  {
+    "address": "004bc9be",
+    "length": 7,
+    "value": "_CIpow"
+  },
+  {
+    "address": "004bc9c8",
+    "length": 7,
+    "value": "calloc"
+  },
+  {
+    "address": "004bc9d2",
+    "length": 8,
+    "value": "_CIasin"
+  },
+  {
+    "address": "004bc9da",
+    "length": 12,
+    "value": "MSVCR80.dll"
+  },
+  {
+    "address": "004bc9e8",
+    "length": 11,
+    "value": "_amsg_exit"
+  },
+  {
+    "address": "004bc9f6",
+    "length": 14,
+    "value": "__getmainargs"
+  },
+  {
+    "address": "004bca06",
+    "length": 7,
+    "value": "_cexit"
+  },
+  {
+    "address": "004bca10",
+    "length": 6,
+    "value": "_exit"
+  },
+  {
+    "address": "004bca18",
+    "length": 12,
+    "value": "_XcptFilter"
+  },
+  {
+    "address": "004bca26",
+    "length": 10,
+    "value": "__initenv"
+  },
+  {
+    "address": "004bca32",
+    "length": 10,
+    "value": "_initterm"
+  },
+  {
+    "address": "004bca3e",
+    "length": 12,
+    "value": "_initterm_e"
+  },
+  {
+    "address": "004bca4c",
+    "length": 20,
+    "value": "_configthreadlocale"
+  },
+  {
+    "address": "004bca62",
+    "length": 17,
+    "value": "__setusermatherr"
+  },
+  {
+    "address": "004bca76",
+    "length": 13,
+    "value": "_adjust_fdiv"
+  },
+  {
+    "address": "004bca86",
+    "length": 13,
+    "value": "__p__commode"
+  },
+  {
+    "address": "004bca96",
+    "length": 11,
+    "value": "__p__fmode"
+  },
+  {
+    "address": "004bcaa4",
+    "length": 16,
+    "value": "_encode_pointer"
+  },
+  {
+    "address": "004bcab6",
+    "length": 15,
+    "value": "__set_app_type"
+  },
+  {
+    "address": "004bcac8",
+    "length": 19,
+    "value": "_crt_debugger_hook"
+  },
+  {
+    "address": "004bcade",
+    "length": 18,
+    "value": "?terminate@@YAXXZ"
+  },
+  {
+    "address": "004bcaf2",
+    "length": 8,
+    "value": "_unlock"
+  },
+  {
+    "address": "004bcafc",
+    "length": 12,
+    "value": "__dllonexit"
+  },
+  {
+    "address": "004bcb0a",
+    "length": 6,
+    "value": "_lock"
+  },
+  {
+    "address": "004bcb12",
+    "length": 8,
+    "value": "_onexit"
+  },
+  {
+    "address": "004bcb1c",
+    "length": 16,
+    "value": "_decode_pointer"
+  },
+  {
+    "address": "004bcb2e",
+    "length": 24,
+    "value": "_except_handler4_common"
+  },
+  {
+    "address": "004bcb48",
+    "length": 15,
+    "value": "_invoke_watson"
+  },
+  {
+    "address": "004bcb5a",
+    "length": 13,
+    "value": "_controlfp_s"
+  },
+  {
+    "address": "004bcb6a",
+    "length": 20,
+    "value": "InterlockedExchange"
+  },
+  {
+    "address": "004bcb80",
+    "length": 6,
+    "value": "Sleep"
+  },
+  {
+    "address": "004bcb88",
+    "length": 27,
+    "value": "InterlockedCompareExchange"
+  },
+  {
+    "address": "004bcba6",
+    "length": 17,
+    "value": "TerminateProcess"
+  },
+  {
+    "address": "004bcbba",
+    "length": 18,
+    "value": "GetCurrentProcess"
+  },
+  {
+    "address": "004bcbce",
+    "length": 25,
+    "value": "UnhandledExceptionFilter"
+  },
+  {
+    "address": "004bcbea",
+    "length": 28,
+    "value": "SetUnhandledExceptionFilter"
+  },
+  {
+    "address": "004bcc08",
+    "length": 18,
+    "value": "IsDebuggerPresent"
+  },
+  {
+    "address": "004bcc1c",
+    "length": 24,
+    "value": "QueryPerformanceCounter"
+  },
+  {
+    "address": "004bcc36",
+    "length": 13,
+    "value": "GetTickCount"
+  },
+  {
+    "address": "004bcc46",
+    "length": 19,
+    "value": "GetCurrentThreadId"
+  },
+  {
+    "address": "004bcc5c",
+    "length": 20,
+    "value": "GetCurrentProcessId"
+  },
+  {
+    "address": "004bcc72",
+    "length": 24,
+    "value": "GetSystemTimeAsFileTime"
+  },
+  {
+    "address": "004bcc8a",
+    "length": 13,
+    "value": "KERNEL32.dll"
+  },
+  {
+    "address": "004be98b",
+    "length": 17,
+    "value": "?AuthenticAMD"
+  },
+  {
+    "address": "004be99c",
+    "length": 16,
+    "value": "UnknownVendr"
+  },
+  {
+    "address": "ffdff1ac",
+    "length": 1,
+    "value": ""
+  },
+  {
+    "address": "ffdffc00",
+    "length": 2,
+    "value": ""
+  }
+]

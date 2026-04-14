@@ -1,0 +1,315 @@
+[
+  {
+    "address": "EXTERNAL:00000001",
+    "name": "memset",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000002",
+    "name": "fprintf",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000003",
+    "name": "__iob_func",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000004",
+    "name": "memmove",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000005",
+    "name": "ftol",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000006",
+    "name": "floor",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000007",
+    "name": "_CIpow",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000008",
+    "name": "calloc",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000009",
+    "name": "_CIasin",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000000a",
+    "name": "_amsg_exit",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000000b",
+    "name": "__getmainargs",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000000c",
+    "name": "_cexit",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000000d",
+    "name": "_exit",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000000e",
+    "name": "_XcptFilter",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000000f",
+    "library": "MSVCR80.DLL",
+    "name": "__initenv",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000010",
+    "name": "initterm",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000011",
+    "name": "initterm_e",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000012",
+    "name": "memcpy",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000013",
+    "library": "MSVCR80.DLL",
+    "name": "__setusermatherr",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000014",
+    "library": "MSVCR80.DLL",
+    "name": "_adjust_fdiv",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000015",
+    "library": "MSVCR80.DLL",
+    "name": "__p__commode",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000016",
+    "library": "MSVCR80.DLL",
+    "name": "__p__fmode",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000017",
+    "library": "MSVCR80.DLL",
+    "name": "_encode_pointer",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000018",
+    "name": "__set_app_type",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000019",
+    "name": "_crt_debugger_hook",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000001a",
+    "name": "terminate",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000001b",
+    "name": "_unlock",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000001c",
+    "library": "MSVCR80.DLL",
+    "name": "__dllonexit",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000001d",
+    "name": "_lock",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000001e",
+    "name": "_onexit",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000001f",
+    "library": "MSVCR80.DLL",
+    "name": "_decode_pointer",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000020",
+    "name": "except_handler4_common",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000021",
+    "name": "_invoke_watson",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000022",
+    "name": "_controlfp_s",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000023",
+    "name": "malloc",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000024",
+    "name": "free",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000025",
+    "name": "fwrite",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000026",
+    "name": "fseek",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000027",
+    "name": "feof",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000028",
+    "name": "ftell",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000029",
+    "name": "fread",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000002a",
+    "name": "fgetc",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000002b",
+    "name": "fopen_s",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000002c",
+    "name": "fclose",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000002d",
+    "name": "exit",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000002e",
+    "name": "atoi",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000002f",
+    "name": "_configthreadlocale",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000030",
+    "name": "printf",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000031",
+    "name": "GetCurrentProcessId",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000032",
+    "name": "GetCurrentThreadId",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000033",
+    "name": "GetTickCount",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000034",
+    "name": "QueryPerformanceCounter",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000035",
+    "name": "IsDebuggerPresent",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000036",
+    "name": "SetUnhandledExceptionFilter",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000037",
+    "name": "UnhandledExceptionFilter",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000038",
+    "name": "GetCurrentProcess",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:00000039",
+    "name": "TerminateProcess",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000003a",
+    "name": "InterlockedCompareExchange",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000003b",
+    "name": "Sleep",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000003c",
+    "name": "InterlockedExchange",
+    "source": "IMPORTED"
+  },
+  {
+    "address": "EXTERNAL:0000003d",
+    "name": "GetSystemTimeAsFileTime",
+    "source": "IMPORTED"
+  }
+]
