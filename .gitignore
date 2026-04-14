@@ -1,0 +1,4 @@
+
+# Exclude test audio and reference bitstreams
+*.wav
+*.at3

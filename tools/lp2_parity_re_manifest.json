@@ -1,0 +1,34 @@
+﻿{
+  "samples": [
+    {
+      "name": "YOUtopia",
+      "source": "YOUtopia_source.wav",
+      "seconds": 30.0,
+      "score_name": "YOUtopia"
+    },
+    {
+      "name": "Badlands",
+      "source": "Badlands.wav",
+      "seconds": 30.0,
+      "score_name": "Badlands"
+    },
+    {
+      "name": "chirp_20_20k_5s",
+      "source": "reverse/quality/input/chirp_20_20k_5s.wav",
+      "seconds": 5.0
+    },
+    {
+      "name": "chirp_wait",
+      "source": "chirp_wait.wav",
+      "seconds": 5.0,
+      "score_name": "chirp_wait",
+      "supplemental": true
+    },
+    {
+      "name": "tmp_transient",
+      "source": "tmp_transient.wav",
+      "seconds": 5.0,
+      "score_name": "tmp_transient"
+    }
+  ]
+}

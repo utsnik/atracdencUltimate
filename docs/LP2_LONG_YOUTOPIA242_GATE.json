@@ -1,0 +1,215 @@
+{
+  "mode": "quality-v10-stable",
+  "baseline_mode": "quality-v10-native",
+  "manifest": "C:\\Users\\Igland\\Antigravity\\Ghidra\\atracdenc_solo_20260411\\tools\\lp2_youtopia242_manifest.json",
+  "hotspot_limit": 25,
+  "hotspot_hf_threshold_db": 18.0,
+  "rows": [
+    {
+      "name": "YOUtopia242",
+      "candidate_full": 18.517342594746086,
+      "candidate_hf": 6.206022248686058,
+      "candidate_seg_p10": 15.097603638733716,
+      "candidate_seg_median": 19.229386245214993,
+      "candidate_vocal_err_ratio": 0.10062954625172632,
+      "candidate_side_snr": -3.0496878818545516,
+      "candidate_side_retention_db": 0.06931117360097844,
+      "candidate_duration_ratio": 0.9999867881036713,
+      "candidate_hotspot_count": 25,
+      "candidate_hotspot_worst_delta": -0.05690689833379903,
+      "delta_full_vs_baseline": 8.99923093591326e-05,
+      "delta_hf_vs_baseline": 0.0004367536870075739,
+      "delta_seg_p10_vs_baseline": 0.0,
+      "delta_vocal_vs_baseline": 1.5749582780166804e-06,
+      "delta_side_snr_vs_baseline": -1.3671975716000873e-06,
+      "delta_side_retention_vs_baseline": 2.7068841006727684e-06,
+      "sony_distance": 1.0851745735856064,
+      "sony_side_distance": 16.613546622595763,
+      "gate_status": "PASS"
+    }
+  ],
+  "hotspots": {
+    "YOUtopia242": [
+      {
+        "frame": 3910,
+        "delta": -0.05690689833379903,
+        "hf_energy_db": 74.12884569470954,
+        "baseline_snr": 7.517742706902838,
+        "candidate_snr": 7.460835808569039
+      },
+      {
+        "frame": 3909,
+        "delta": -0.00016185787873723712,
+        "hf_energy_db": 72.50705575462572,
+        "baseline_snr": 7.352023339121155,
+        "candidate_snr": 7.351861481242418
+      },
+      {
+        "frame": 6295,
+        "delta": 0.0,
+        "hf_energy_db": 80.54974042878308,
+        "baseline_snr": 6.968927969087744,
+        "candidate_snr": 6.968927969087744
+      },
+      {
+        "frame": 6400,
+        "delta": 0.0,
+        "hf_energy_db": 80.20965064648948,
+        "baseline_snr": 7.454153226566467,
+        "candidate_snr": 7.454153226566467
+      },
+      {
+        "frame": 6294,
+        "delta": 0.0,
+        "hf_energy_db": 80.12060556091313,
+        "baseline_snr": 7.791428531677265,
+        "candidate_snr": 7.791428531677265
+      },
+      {
+        "frame": 6401,
+        "delta": 0.0,
+        "hf_energy_db": 79.86356797799807,
+        "baseline_snr": 8.544324584085912,
+        "candidate_snr": 8.544324584085912
+      },
+      {
+        "frame": 6296,
+        "delta": 0.0,
+        "hf_energy_db": 79.8332850033886,
+        "baseline_snr": 7.094847851880825,
+        "candidate_snr": 7.094847851880825
+      },
+      {
+        "frame": 8647,
+        "delta": 0.0,
+        "hf_energy_db": 79.69543557311817,
+        "baseline_snr": 10.218485448076258,
+        "candidate_snr": 10.218485448076258
+      },
+      {
+        "frame": 6399,
+        "delta": 0.0,
+        "hf_energy_db": 79.51607572579205,
+        "baseline_snr": 9.168622118342189,
+        "candidate_snr": 9.168622118342189
+      },
+      {
+        "frame": 6297,
+        "delta": 0.0,
+        "hf_energy_db": 79.12166581481846,
+        "baseline_snr": 7.891820643362228,
+        "candidate_snr": 7.891820643362228
+      },
+      {
+        "frame": 8902,
+        "delta": 0.0,
+        "hf_energy_db": 79.09737306039023,
+        "baseline_snr": 10.059852425890925,
+        "candidate_snr": 10.059852425890925
+      },
+      {
+        "frame": 6298,
+        "delta": 0.0,
+        "hf_energy_db": 79.04922641455953,
+        "baseline_snr": 9.42485616971674,
+        "candidate_snr": 9.42485616971674
+      },
+      {
+        "frame": 8410,
+        "delta": 0.0,
+        "hf_energy_db": 78.80260233550968,
+        "baseline_snr": 7.201567444233994,
+        "candidate_snr": 7.201567444233994
+      },
+      {
+        "frame": 8411,
+        "delta": 0.0,
+        "hf_energy_db": 78.80179371549328,
+        "baseline_snr": 7.828474826204554,
+        "candidate_snr": 7.828474826204554
+      },
+      {
+        "frame": 8412,
+        "delta": 0.0,
+        "hf_energy_db": 78.75246525263626,
+        "baseline_snr": 6.537144462223838,
+        "candidate_snr": 6.537144462223838
+      },
+      {
+        "frame": 6107,
+        "delta": 0.0,
+        "hf_energy_db": 78.71463996312806,
+        "baseline_snr": 9.407514571374593,
+        "candidate_snr": 9.407514571374593
+      },
+      {
+        "frame": 6291,
+        "delta": 0.0,
+        "hf_energy_db": 78.44521500361321,
+        "baseline_snr": 10.996434106518965,
+        "candidate_snr": 10.996434106518965
+      },
+      {
+        "frame": 6099,
+        "delta": 0.0,
+        "hf_energy_db": 78.42542131494206,
+        "baseline_snr": 10.198175033299258,
+        "candidate_snr": 10.198175033299258
+      },
+      {
+        "frame": 6071,
+        "delta": 0.0,
+        "hf_energy_db": 78.36200547746779,
+        "baseline_snr": 11.276599471945659,
+        "candidate_snr": 11.276599471945659
+      },
+      {
+        "frame": 6108,
+        "delta": 0.0,
+        "hf_energy_db": 78.30574934588152,
+        "baseline_snr": 11.324358743615203,
+        "candidate_snr": 11.324358743615203
+      },
+      {
+        "frame": 5534,
+        "delta": 0.0,
+        "hf_energy_db": 78.26029072312015,
+        "baseline_snr": 8.635312267638417,
+        "candidate_snr": 8.635312267638417
+      },
+      {
+        "frame": 8903,
+        "delta": 0.0,
+        "hf_energy_db": 78.24260405524319,
+        "baseline_snr": 9.465765752129807,
+        "candidate_snr": 9.465765752129807
+      },
+      {
+        "frame": 6066,
+        "delta": 0.0,
+        "hf_energy_db": 78.16798847940463,
+        "baseline_snr": 9.781211838661646,
+        "candidate_snr": 9.781211838661646
+      },
+      {
+        "frame": 8742,
+        "delta": 0.0,
+        "hf_energy_db": 78.07711432920608,
+        "baseline_snr": 9.08849973062743,
+        "candidate_snr": 9.08849973062743
+      },
+      {
+        "frame": 2664,
+        "delta": 0.0,
+        "hf_energy_db": 78.01415845449695,
+        "baseline_snr": 9.122393087487652,
+        "candidate_snr": 9.122393087487652
+      }
+    ]
+  },
+  "stability_gate": {
+    "enabled": true,
+    "failures": [],
+    "status": "PASS"
+  }
+}

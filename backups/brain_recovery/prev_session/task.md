@@ -1,0 +1,6 @@
+- [ ] Create `generate_tone.py` and generate 1000Hz reference wav
+- [ ] Encode tone with `at3tool.exe` and `atracdenc.exe`
+- [ ] Create `SpectralAudit_v2.py` for bit-level bitstream comparison
+- [ ] Identify divergence point (Bit-budget, BFU order, or VLC bits)
+- [ ] Fix identified divergence in `atrac3_bitstream.cpp` or `atrac3denc.cpp`
+- [ ] Verify non-zero SNR in automated sweeper

@@ -1,0 +1,25 @@
+{
+  "samples": [
+    {
+      "name": "YOUtopia",
+      "source": "YOUtopia_source.wav",
+      "seconds": 15.0,
+      "baseline_decode": "youtopia_song.current_best_parity_v10.dec.wav"
+    },
+    {
+      "name": "Badlands",
+      "source": "Badlands.wav",
+      "seconds": 15.0
+    },
+    {
+      "name": "chirp_wait",
+      "source": "chirp_wait.wav",
+      "seconds": 5.0
+    },
+    {
+      "name": "tmp_transient",
+      "source": "tmp_transient.wav",
+      "seconds": 5.0
+    }
+  ]
+}
