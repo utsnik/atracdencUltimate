@@ -1110,21 +1110,21 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocation(const std::vector<TS
             bitsPerEachBlock[i] = 0;
         } else {
             const uint32_t fix = FixedBitAllocTable[i];
-            float x = 6;
-            if (i < 3) {
-                x = 2.8;
-            } else if (i < 10) {
-                x = 2.6;
-            } else if (i < 15) {
-                x = 3.3;
-            } else if (i <= 20) {
-                x = 3.6;
-            } else if (i <= 28) {
-                x = 4.2;
+            float x = 5.5f;  // Group 5: BFU [26,31]
+            if (i < 8) {
+                x = 2.6f;    // Group 0: BFU [0,7]
+            } else if (i < 12) {
+                x = 2.8f;    // Group 1: BFU [8,11]
+            } else if (i < 16) {
+                x = 3.3f;    // Group 2: BFU [12,15]
+            } else if (i < 20) {
+                x = 3.6f;    // Group 3: BFU [16,19]
+            } else if (i < 26) {
+                x = 4.2f;    // Group 4: BFU [20,25]
             }
             int tmp = spread * ( (float)scaledBlocks[i].ScaleFactorIndex / x) + (1.0 - spread) * fix - shift
                       + (int)std::lround(gainBoostPerBand[bfuBand] * gainScale);
-            if (Params.Bitrate <= 132300 && i >= 22 && scaledBlocks[i].MaxEnergy > ath * 2.5f) {
+            if (Params.Bitrate <= 132300 && i >= 20 && scaledBlocks[i].MaxEnergy > ath * 2.5f) {
                 tmp += 1;
             }
             if (hints.Confidence >= 0.5f) {
@@ -1183,23 +1183,23 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocationLegacyV10(const std::
             bitsPerEachBlock[i] = 0;
         } else {
             const uint32_t fix = FixedBitAllocTable[i];
-            float x = 6.0f;
-            if (i < 3) {
-                x = 2.8f;
-            } else if (i < 10) {
-                x = 2.6f;
-            } else if (i < 15) {
-                x = 3.3f;
-            } else if (i <= 20) {
-                x = 3.6f;
-            } else if (i <= 28) {
-                x = 4.2f;
+            float x = 5.5f;  // Group 5: BFU [26,31]
+            if (i < 8) {
+                x = 2.6f;    // Group 0: BFU [0,7]
+            } else if (i < 12) {
+                x = 2.8f;    // Group 1: BFU [8,11]
+            } else if (i < 16) {
+                x = 3.3f;    // Group 2: BFU [12,15]
+            } else if (i < 20) {
+                x = 3.6f;    // Group 3: BFU [16,19]
+            } else if (i < 26) {
+                x = 4.2f;    // Group 4: BFU [20,25]
             }
             int tmp = spread * ((float)scaledBlocks[i].ScaleFactorIndex / x)
                     + (1.0f - spread) * fix
                     - shift
                     + gainBoostPerBand[bfuBand];
-            if (Params.Bitrate <= 132300 && i >= 22 && scaledBlocks[i].MaxEnergy > ath * 2.5f) {
+            if (Params.Bitrate <= 132300 && i >= 20 && scaledBlocks[i].MaxEnergy > ath * 2.5f) {
                 tmp += 1;
             }
             if (parity && Params.Bitrate <= 132300) {

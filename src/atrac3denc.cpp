@@ -376,12 +376,51 @@ static std::vector<TGainCurvePoint> CalcCurve(const std::vector<float>& gain,
     const uint16_t location = static_cast<uint16_t>(std::min<size_t>(31, maxPos > 0 ? maxPos - 1 : 0));
     points.push_back({level, location});
 
-    if (maxPos + 4 < gain.size()) {
-        float decay = gain[maxPos + 4] / std::max(maxGain, 1e-6f);
-        if (decay > 0.55f) {
-            points.push_back({ClampGainLevel(static_cast<uint16_t>(level + 1)),
-                              static_cast<uint16_t>(std::min<size_t>(31, maxPos + 2))});
+    // Sony FUN_00440d20-style greedy multi-point selection.
+    // After placing the primary peak, iteratively find the next strongest
+    // attack above a secondary threshold, up to 6 additional points.
+    // Sony selects top-N from ~40 candidates via iterative max-scan;
+    // this replicates that strategy over the 32 subframe gain array.
+    {
+        std::vector<float> residual(gain);
+        // Zero out primary peak and neighbors to prevent clustering
+        static constexpr size_t kNeighborRadius = 2;
+        const size_t zeroStart = (maxPos >= kNeighborRadius) ? maxPos - kNeighborRadius : 0;
+        const size_t zeroEnd   = std::min(gain.size() - 1, maxPos + kNeighborRadius);
+        for (size_t k = zeroStart; k <= zeroEnd; ++k) residual[k] = 0.0f;
+
+        // Secondary threshold: ~65% of primary trigger.
+        const float secondaryThresh = target * minScore * 0.65f;
+        // Sony caps at 7 gain points total; reserve one slot for the primary.
+        // at3tool decoder supports max 6 gain points per band (empirically verified).
+        // MaxGainPointsNum=8 is the array bound; 7+ points cause 0x1000105 decode error.
+        const size_t maxExtra = std::min<size_t>(5,
+            static_cast<size_t>(TAtrac3Data::SubbandInfo::MaxGainPointsNum) - 2);
+
+        for (size_t extra = 0; extra < maxExtra; ++extra) {
+            float nextMax = 0.0f;
+            size_t nextPos = 0;
+            for (size_t i = 0; i < residual.size(); ++i) {
+                if (residual[i] > nextMax) { nextMax = residual[i]; nextPos = i; }
+            }
+            if (nextMax <= 0.0f || nextMax < secondaryThresh) break;
+
+            const uint16_t nextLevel = ClampGainLevel(
+                RelationToIdx(nextMax / std::max(target, 1e-6f)));
+            const uint16_t nextLoc = static_cast<uint16_t>(
+                std::min<size_t>(31, nextPos > 0 ? nextPos - 1 : 0));
+            points.push_back({nextLevel, nextLoc});
+
+            const size_t nzStart = (nextPos >= kNeighborRadius) ? nextPos - kNeighborRadius : 0;
+            const size_t nzEnd   = std::min(residual.size() - 1, nextPos + kNeighborRadius);
+            for (size_t k = nzStart; k <= nzEnd; ++k) residual[k] = 0.0f;
         }
+
+        // Gain encoder requires points in ascending location order
+        std::sort(points.begin(), points.end(),
+                  [](const TGainCurvePoint& a, const TGainCurvePoint& b) {
+                      return a.Location < b.Location;
+                  });
     }
 
     if (yamlLog) {
