@@ -115,6 +115,9 @@ private:
     const bool EnableStereoBalanceExp;
     const bool EnableGainExp;
     const bool EnableGainExp2;
+    const bool EnableSmrAlloc;
+    const bool EnableTemporalMasking;
+    float PrevFrameEnergy[32] = {};
     const bool UseJointStereo;
     const uint32_t StartFrame;
     const uint32_t MaxFrames;
@@ -168,6 +171,20 @@ private:
                                    NBitStream::TBitStream* bitStream);
 public:
     TAtrac3BitStreamWriter(ICompressedOutput* container, const TContainerParams& params, uint32_t bfuIdxConst,
+                           bool enableParityAnalysis,
+                           bool enableParitySearch,
+                           bool forceLegacyV10Quality,
+                           bool enableStabilityMode,
+                           bool enableStereoExp,
+                           bool enableStereoBalanceExp,
+                           bool enableGainExp,
+                           bool enableGainExp2,
+                           bool enableSmrAlloc,
+                           uint32_t startFrame,
+                           uint32_t maxFrames,
+                           std::ostream* decisionLog);
+
+    TAtrac3BitStreamWriter(ICompressedOutput* container, const TContainerParams& params, uint32_t bfuIdxConst,
                            bool enableParityAnalysis = false,
                            bool enableParitySearch = false,
                            bool forceLegacyV10Quality = false,
@@ -176,6 +193,8 @@ public:
                            bool enableStereoBalanceExp = false,
                            bool enableGainExp = false,
                            bool enableGainExp2 = false,
+                           bool enableSmrAlloc = false,
+                           bool enableTemporalMasking = false,
                            uint32_t startFrame = 0,
                            uint32_t maxFrames = 0,
                            std::ostream* decisionLog = nullptr);

@@ -141,6 +141,8 @@ enum EOptions
     O_STEREO_BALANCE_EXP = 18,
     O_GAIN_EXP = 19,
     O_GAIN_EXP2 = 20,
+    O_SMR_ALLOC = 21,
+    O_TEMPORAL_MASKING = 22,
 };
 
 static void CheckInputFormat(const TWav* p)
@@ -369,6 +371,8 @@ int main_(int argc, char* const* argv)
         { "stereo-balance-exp", no_argument, NULL, O_STEREO_BALANCE_EXP},
         { "gain-exp", no_argument, NULL, O_GAIN_EXP},
         { "gain-exp2", no_argument, NULL, O_GAIN_EXP2},
+        { "smr-alloc", no_argument, NULL, O_SMR_ALLOC},
+        { "temporal-masking", no_argument, NULL, O_TEMPORAL_MASKING},
         { "start-frame", required_argument, NULL, O_START_FRAME},
         { "max-frames", required_argument, NULL, O_MAX_FRAMES},
         { NULL, 0, NULL, 0}
@@ -391,6 +395,8 @@ int main_(int argc, char* const* argv)
     bool enableStereoBalanceExp = false;
     bool enableGainExp = false;
     bool enableGainExp2 = false;
+    bool enableSmrAlloc = false;
+    bool enableTemporalMasking = false;
     uint32_t startFrame = 0;
     uint32_t maxFrames = 0;
     string yamlLogFile;
@@ -501,6 +507,12 @@ int main_(int argc, char* const* argv)
             case O_GAIN_EXP2:
                 enableGainExp2 = true;
                 break;
+            case O_SMR_ALLOC:
+                enableSmrAlloc = true;
+                break;
+            case O_TEMPORAL_MASKING:
+                enableTemporalMasking = true;
+                break;
             case O_START_FRAME:
                 startFrame = (uint32_t)checkedStoi(optarg, 0, INT32_MAX, 0);
                 break;
@@ -587,6 +599,8 @@ int main_(int argc, char* const* argv)
                                                                 noTonalComponents, wavIO->GetChannelNum(), bfuIdxConst,
                                                                 yamlOut, enableMlHints, enableParityAnalysis, enableParitySearch, enableQualityV10,
                                                                 enableStabilityMode, enableStereoExp, enableStereoBalanceExp, enableGainExp, enableGainExp2,
+                                                                enableSmrAlloc,
+                                                                enableTemporalMasking,
                                                                 startFrame, maxFrames, decisionOut);
                 PrepareAtrac3Encoder(inFile, outFile, noStdOut, std::move(encoderSettings),
                 &totalSamples, wavIO, &pcmEngine, &atracProcessor);

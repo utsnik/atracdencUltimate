@@ -1246,6 +1246,8 @@ TPCMEngine::TProcessLambda TAtrac3Encoder::GetLambda()
                                    Params.EnableQualityV10, Params.EnableStabilityMode,
                                    Params.EnableStereoExp, Params.EnableStereoBalanceExp,
                                    Params.EnableGainExp, Params.EnableGainExp2,
+                                   Params.EnableSmrAlloc,
+                                   Params.EnableTemporalMasking,
                                    Params.StartFrame, Params.MaxFrames,
                                    Params.DecisionLog));
 

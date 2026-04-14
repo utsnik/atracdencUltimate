@@ -270,6 +270,8 @@ struct TAtrac3EncoderSettings {
                            bool enableStereoBalanceExp = false,
                            bool enableGainExp = false,
                            bool enableGainExp2 = false,
+                           bool enableSmrAlloc = false,
+                           bool enableTemporalMasking = false,
                            uint32_t startFrame = 0,
                            uint32_t maxFrames = 0,
                            std::ostream* decisionLog = nullptr)
@@ -288,6 +290,8 @@ struct TAtrac3EncoderSettings {
         , EnableStereoBalanceExp(enableStereoBalanceExp)
         , EnableGainExp(enableGainExp)
         , EnableGainExp2(enableGainExp2)
+        , EnableSmrAlloc(enableSmrAlloc)
+        , EnableTemporalMasking(enableTemporalMasking)
         , StartFrame(startFrame)
         , MaxFrames(maxFrames)
         , DecisionLog(decisionLog)
@@ -307,6 +311,8 @@ struct TAtrac3EncoderSettings {
     const bool EnableStereoBalanceExp;
     const bool EnableGainExp;
     const bool EnableGainExp2;
+    const bool EnableSmrAlloc;
+    const bool EnableTemporalMasking;
     const uint32_t StartFrame;
     const uint32_t MaxFrames;
     std::ostream* DecisionLog; // nullable; frame decision log for parity analysis

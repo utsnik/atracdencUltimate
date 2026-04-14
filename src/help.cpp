@@ -27,6 +27,8 @@ atracdenc {-e <codec> | --encode=<codec> | -d | --decode} -i <in> -o <out>
 --stereo-balance-exp	enable LP2 non-JS stereo bit-balance experiment lane (ATRAC3, testing mode)
 --gain-exp		enable very narrow gain-control experiments (ATRAC3, testing mode)
 --gain-exp2		enable high-band-only gain experiment lane (ATRAC3, testing mode)
+--smr-alloc		Enable SMR-driven perceptual bit allocation (Bark spreading, +/-10% divisor modulation + mid-band bias)
+--temporal-masking	Enable temporal masking pre-echo protection (attack slope detection, up to 15% bit boost)
 --decision-log <file>	write frame decision log for parity analysis (ATRAC3)
 --start-frame <n>	start parity/log analysis window at frame n (ATRAC3)
 --max-frames <n>	limit parity/log analysis window to n frames; 0 means full file (ATRAC3)

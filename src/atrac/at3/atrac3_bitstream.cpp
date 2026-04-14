@@ -17,6 +17,7 @@
  */
 
 #include "atrac3_bitstream.h"
+#include "atrac3_masking.h"
 #include "qmf/qmf.h"
 #include <atrac/atrac_psy_common.h>
 #include <bitstream/bitstream.h>
@@ -67,6 +68,30 @@ TAtrac3BitStreamWriter::TAtrac3BitStreamWriter(ICompressedOutput* container, con
                                                bool enableStereoBalanceExp,
                                                bool enableGainExp,
                                                bool enableGainExp2,
+                                               bool enableSmrAlloc,
+                                               uint32_t startFrame,
+                                               uint32_t maxFrames,
+                                               std::ostream* decisionLog)
+    : TAtrac3BitStreamWriter(container, params, bfuIdxConst,
+                             enableParityAnalysis, enableParitySearch,
+                             forceLegacyV10Quality, enableStabilityMode,
+                             enableStereoExp, enableStereoBalanceExp,
+                             enableGainExp, enableGainExp2, enableSmrAlloc,
+                             false, startFrame, maxFrames, decisionLog)
+{
+}
+
+TAtrac3BitStreamWriter::TAtrac3BitStreamWriter(ICompressedOutput* container, const TContainerParams& params, uint32_t bfuIdxConst,
+                                               bool enableParityAnalysis,
+                                               bool enableParitySearch,
+                                               bool forceLegacyV10Quality,
+                                               bool enableStabilityMode,
+                                               bool enableStereoExp,
+                                               bool enableStereoBalanceExp,
+                                               bool enableGainExp,
+                                               bool enableGainExp2,
+                                               bool enableSmrAlloc,
+                                               bool enableTemporalMasking,
                                                uint32_t startFrame,
                                                uint32_t maxFrames,
                                                std::ostream* decisionLog)
@@ -81,6 +106,8 @@ TAtrac3BitStreamWriter::TAtrac3BitStreamWriter(ICompressedOutput* container, con
 , EnableStereoBalanceExp(enableStereoBalanceExp)
 , EnableGainExp(enableGainExp)
 , EnableGainExp2(enableGainExp2)
+, EnableSmrAlloc(enableSmrAlloc)
+, EnableTemporalMasking(enableTemporalMasking)
 , UseJointStereo(params.Js || enableStereoExp)
 , StartFrame(startFrame)
 , MaxFrames(maxFrames)
@@ -1099,6 +1126,23 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocation(const std::vector<TS
                                                             float transientBias,
                                                             float gainScale)
 {
+    // Compute per-BFU SMR (Signal-to-Mask Ratio) for perceptual bit allocation.
+    float smrPerBfu[TAtrac3Data::MaxBfus] = {};
+    if (EnableSmrAlloc) {
+        float energyPerBfu[TAtrac3Data::MaxBfus] = {};
+        for (size_t i = 0; i < bfuNum; ++i) {
+            energyPerBfu[i] = scaledBlocks[i].MaxEnergy;
+        }
+        ::NAtrac3::CalcSmr(energyPerBfu, smrPerBfu, static_cast<uint32_t>(bfuNum));
+    }
+    // Compute per-BFU attack slope for temporal masking.
+    float attackSlope[TAtrac3Data::MaxBfus] = {};
+    if (EnableTemporalMasking) {
+        for (size_t i = 0; i < bfuNum; ++i) {
+            attackSlope[i] = scaledBlocks[i].MaxEnergy / std::max(1e-30f, PrevFrameEnergy[i]);
+        }
+    }
+
     vector<uint32_t> bitsPerEachBlock(bfuNum);
     for (size_t i = 0; i < bitsPerEachBlock.size(); ++i) {
         float ath = ATH[i] * loudness;
@@ -1121,6 +1165,25 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocation(const std::vector<TS
                 x = 3.6f;    // Group 3: BFU [16,19]
             } else if (i < 26) {
                 x = 4.2f;    // Group 4: BFU [20,25]
+            }
+            // Perceptual modulation: scale divisor x by SMR.
+            // High SMR (well above mask) → reduce x → allocate more bits.
+            // Low SMR (near/below mask)  → increase x → allocate fewer bits.
+            // Effect clamped to ±10% to preserve existing tuning balance.
+            if (EnableSmrAlloc) {
+                const float smrDb = 10.0f * std::log10(std::max(1e-30f, smrPerBfu[i]));
+                const float smrScale = std::max(0.90f, std::min(1.10f, 1.0f - 0.01f * smrDb));
+                // Perceptual core bias: boost mid-band precision to match Sony's allocation priority.
+                if (i >= 8 && i < 26) {
+                    x *= 0.96f;
+                }
+                x *= smrScale;
+            }
+            // Temporal masking: if current-frame energy rose sharply vs previous, allocate more bits now to prevent pre-echo.
+            // Reduce x (allocate more bits) proportionally to the attack slope, capped at 15%.
+            if (EnableTemporalMasking && attackSlope[i] > 4.0f) {
+                const float attackBoost = std::min(0.15f, 0.05f * std::log2(attackSlope[i]));
+                x *= (1.0f - attackBoost);
             }
             int tmp = spread * ( (float)scaledBlocks[i].ScaleFactorIndex / x) + (1.0 - spread) * fix - shift
                       + (int)std::lround(gainBoostPerBand[bfuBand] * gainScale);
@@ -1159,6 +1222,11 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocation(const std::vector<TS
             }
         }
     }
+    if (EnableTemporalMasking) {
+        for (size_t i = 0; i < bfuNum; ++i) {
+            PrevFrameEnergy[i] = scaledBlocks[i].MaxEnergy;
+        }
+    }
     return bitsPerEachBlock;
 }
 
@@ -1170,6 +1238,21 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocationLegacyV10(const std::
                                                                      const int gainBoostPerBand[TAtrac3Data::NumQMF],
                                                                      const TParityFrameAnalysis* parity)
 {
+    float smrPerBfu[TAtrac3Data::MaxBfus] = {};
+    if (EnableSmrAlloc) {
+        float energyPerBfu[TAtrac3Data::MaxBfus] = {};
+        for (size_t i = 0; i < bfuNum; ++i) {
+            energyPerBfu[i] = scaledBlocks[i].MaxEnergy;
+        }
+        ::NAtrac3::CalcSmr(energyPerBfu, smrPerBfu, static_cast<uint32_t>(bfuNum));
+    }
+    float attackSlope[TAtrac3Data::MaxBfus] = {};
+    if (EnableTemporalMasking) {
+        for (size_t i = 0; i < bfuNum; ++i) {
+            attackSlope[i] = scaledBlocks[i].MaxEnergy / std::max(1e-30f, PrevFrameEnergy[i]);
+        }
+    }
+
     vector<uint32_t> bitsPerEachBlock(bfuNum);
     int transientProtectHits = 0;
     int hfSibilanceProtectHits = 0;
@@ -1194,6 +1277,20 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocationLegacyV10(const std::
                 x = 3.6f;    // Group 3: BFU [16,19]
             } else if (i < 26) {
                 x = 4.2f;    // Group 4: BFU [20,25]
+            }
+            if (EnableSmrAlloc) {
+                const float smrDb = 10.0f * std::log10(std::max(1e-30f, smrPerBfu[i]));
+                const float smrScale = std::max(0.90f, std::min(1.10f, 1.0f - 0.01f * smrDb));
+                // Perceptual core bias: boost mid-band precision to match Sony's allocation priority.
+                if (i >= 8 && i < 26) {
+                    x *= 0.96f;
+                }
+                x *= smrScale;
+            }
+            // Temporal masking: if current-frame energy rose sharply vs previous, allocate more bits now to prevent pre-echo.
+            if (EnableTemporalMasking && attackSlope[i] > 4.0f) {
+                const float attackBoost = std::min(0.15f, 0.05f * std::log2(attackSlope[i]));
+                x *= (1.0f - attackBoost);
             }
             int tmp = spread * ((float)scaledBlocks[i].ScaleFactorIndex / x)
                     + (1.0f - spread) * fix
@@ -1253,6 +1350,11 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocationLegacyV10(const std::
             } else {
                 bitsPerEachBlock[i] = tmp;
             }
+        }
+    }
+    if (EnableTemporalMasking) {
+        for (size_t i = 0; i < bfuNum; ++i) {
+            PrevFrameEnergy[i] = scaledBlocks[i].MaxEnergy;
         }
     }
     if (DecisionLogActiveThisFrame && parity) {
