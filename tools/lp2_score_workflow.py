@@ -23,7 +23,6 @@ import tempfile
 import wave
 from pathlib import Path
 
-
 def run(cmd: list[str]) -> None:
     p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if p.returncode != 0:
@@ -328,7 +327,7 @@ def encode_with_wrapper(wrapper: Path, enc: Path, legacy_enc: Path, at3tool: Pat
 
 
 def decode_at3(at3tool: Path, source: Path, output: Path) -> None:
-    run([str(at3tool), "-d", str(source), str(output)])
+    subprocess.run(["ffmpeg", "-y", "-i", str(source), str(output)], check=True, capture_output=True)
 
 
 def render_table(rows: list[dict[str, object]]) -> list[str]:

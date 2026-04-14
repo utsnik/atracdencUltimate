@@ -43,7 +43,6 @@ import tempfile
 import wave
 from pathlib import Path
 
-
 def run(cmd: list[str]) -> int:
     p = subprocess.run(cmd)
     return p.returncode
@@ -70,9 +69,10 @@ def validate_with_at3tool(input_wav: Path, output_at3: Path, at3tool: Path, min_
 
     with tempfile.TemporaryDirectory(prefix="lp2_validate_") as td:
         dec = Path(td) / "decoded.wav"
-        rc = run([str(at3tool), "-d", str(output_at3), str(dec)])
-        if rc != 0:
-            return False, f"at3tool decode failed (exit {rc})"
+        try:
+            subprocess.run(["ffmpeg", "-y", "-i", str(output_at3), str(dec)], check=True, capture_output=True)
+        except subprocess.CalledProcessError as e:
+            return False, f"ffmpeg decode failed"
         try:
             out_sec = read_wav_duration_seconds(dec)
         except Exception:

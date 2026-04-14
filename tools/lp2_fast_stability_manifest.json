@@ -3,8 +3,7 @@
     {
       "name": "YOUtopia",
       "source": "YOUtopia_source.wav",
-      "seconds": 15.0,
-      "baseline_decode": "youtopia_song.current_best_parity_v10.dec.wav"
+      "seconds": 15.0
     },
     {
       "name": "Badlands",
