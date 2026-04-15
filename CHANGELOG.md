@@ -6,6 +6,15 @@
 - `atrac3_bark.h`: Constexpr Bark-scale BFU mapping table (center Hz + Bark values for all 32 BFUs).
 - `atrac3_masking.h`: ISO Psychoacoustic Model 1 spreading function (32×32 pre-computed matrix) + CalcMaskingThreshold / CalcSmr inline functions.
 
+### ML Phase A (--ml-hints): wired but not recommended
+- Replaced placeholder PredictMlHints with trained 3-layer MLP (7→32→16→4, ReLU hidden, tanh output)
+- Trained on 223,574 frames from 9-track corpus; final loss 0.00683
+- Wired to both CalcBitsAllocation and CalcBitsAllocationLegacyV10
+- Benchmark result: negligible effect (all deltas within ±0.013 dB noise floor)
+- Root cause: training labels were track-level averages (same value for all frames in a track), so MLP learned genre-to-delta mapping rather than per-frame allocation errors
+- Flag exists (--ml-hints) but is NOT included in recommended config
+- Phase B requires per-frame perceptual labels (PESQ vs original FLAC per frame) to exceed Sony, not just approach parity
+
 ### Planned
 - ML/Neural learned bit allocator (--ml-alloc): per-frame MLP replacing static divisor table, with optional LSTM temporal context. See docs/ML_ROADMAP.md.
 

@@ -940,6 +940,7 @@ void TAtrac3Encoder::CreateSubbandInfo(const float* upInput[4],
         // as a conservative proxy for nextLevel_{N+2} (≈ quietest level reachable in N+1,
         // a lower bound on frame N+2's start level).
         int scaleBoost = 0;
+        uint32_t estimatedNextScaleLevel = 4u;  // neutral default
         {
             static constexpr size_t kLookaheadOffset = 3072;
             const size_t outSz = result.signal.size();
@@ -952,7 +953,7 @@ void TAtrac3Encoder::CreateSubbandInfo(const float* upInput[4],
                                                            lookaheadPoints, true);
                     const float lookaheadMin = *std::min_element(lookaheadGain.begin(), lookaheadGain.end());
                     if (lookaheadMin > 1e-6f) {
-                        const uint32_t estimatedNextScaleLevel = RelationToIdx(frameEndLevel / lookaheadMin);
+                        estimatedNextScaleLevel = RelationToIdx(frameEndLevel / lookaheadMin);
                         if (estimatedNextScaleLevel < 4u)
                             scaleBoost = static_cast<int>(4u - estimatedNextScaleLevel);
                     }
@@ -1041,10 +1042,32 @@ void TAtrac3Encoder::CreateSubbandInfo(const float* upInput[4],
             }
 
             if (hpfRmsNextModValid && prevTarget > 1e-6f && hpfRmsNextMod > 1e-6f) {
-                const uint16_t point0Level = ClampGainLevel(RelationToIdx(prevTarget / hpfRmsNextMod));
+                const uint16_t rawPoint0Level = ClampGainLevel(RelationToIdx(prevTarget / hpfRmsNextMod));
+                // Context-relative clamp: prevent point0 from jumping more than 3 levels
+                // away from the first existing curve point (or neutral=4 if no points exist).
+                static constexpr int kPoint0MaxDelta = 3;
+                const int refLevel = curvePoints.empty()
+                    ? 4
+                    : static_cast<int>(curvePoints.front().Level);
+                const uint16_t clampedPoint0Level = ClampGainLevel(static_cast<uint16_t>(
+                    std::max(refLevel - kPoint0MaxDelta,
+                             std::min(refLevel + kPoint0MaxDelta, static_cast<int>(rawPoint0Level)))));
+                // Attenuation pre-compensation: when next frame is predicted to start with
+                // strong attenuation (estimatedNextScaleLevel > 4), the decoder will attenuate
+                // frame N's overlap by GainLevel[estimatedNextScaleLevel]. Pre-inflate by
+                // matching point0 Level to the predicted next-frame scale. This fixes
+                // isolated -19 dB 2-frame artifacts on transient onsets (pre-echo suppression
+                // in frame N+1 causes decoder to attenuate frame N's OLA region).
+                const uint16_t point0Level = (estimatedNextScaleLevel > 4u)
+                    ? ClampGainLevel(static_cast<uint16_t>(std::max(
+                          static_cast<int>(clampedPoint0Level),
+                          static_cast<int>(estimatedNextScaleLevel))))
+                    : clampedPoint0Level;
                 if (YamlLog) {
                     *YamlLog << "        point0_level: " << point0Level
-                             << "  # RelationToIdx(prev_target/hpf_rms_next_mod)\n";
+                             << "  # clamped=" << clampedPoint0Level
+                             << " next_scale=" << estimatedNextScaleLevel
+                             << " ref=" << refLevel << "\n";
                 }
                 auto it = std::find_if(curvePoints.begin(), curvePoints.end(),
                                        [](const TGainCurvePoint& p) { return p.Location == 0; });
