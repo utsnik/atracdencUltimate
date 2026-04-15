@@ -21,6 +21,7 @@
 #include "atrac/atrac_psy_common.h"
 #include <assert.h>
 #include <algorithm>
+#include <fstream>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
@@ -37,6 +38,9 @@ struct TMlFrameFeatures {
     float HfRatio = 0.0f;
     float TransientScore = 0.0f;
 };
+
+static std::ofstream* gFeatureLog = nullptr;
+static int gFeatureFrameIdx = 0;
 
 static TMlFrameFeatures ExtractMlFrameFeatures(const std::vector<float>& specs) {
     TMlFrameFeatures f;
@@ -74,6 +78,13 @@ static TMlFrameFeatures ExtractMlFrameFeatures(const std::vector<float>& specs) 
     }
     f.AvgFlatness = flatAccum / 4.0f;
     f.HfRatio = (f.BandEnergy[2] + f.BandEnergy[3]) / (totalEnergy + kEps);
+    if (gFeatureLog && gFeatureLog->is_open()) {
+        *gFeatureLog << gFeatureFrameIdx++ << ','
+                     << f.BandEnergy[0] << ',' << f.BandEnergy[1] << ','
+                     << f.BandEnergy[2] << ',' << f.BandEnergy[3] << ','
+                     << f.TransientScore << ',' << f.AvgFlatness << ','
+                     << f.HfRatio << '\n';
+    }
     return f;
 }
 
@@ -528,6 +539,13 @@ TAtrac3Encoder::TAtrac3Encoder(TCompressedOutputPtr&& oma, TAtrac3EncoderSetting
     , Upsampler(11025.0f, 800.0f)
 {
     YamlLog = Params.YamlLog;
+    gFeatureLog = nullptr;
+    if (!Params.FeatureLogPath.empty()) {
+        static std::ofstream featureLogFile(Params.FeatureLogPath);
+        featureLogFile << "frame,band0,band1,band2,band3,transient,flatness,hf_ratio\n";
+        gFeatureLog = &featureLogFile;
+        gFeatureFrameIdx = 0;
+    }
 }
 
 TAtrac3Encoder::~TAtrac3Encoder()

@@ -24,6 +24,7 @@
 #include <vector>
 #include <cassert>
 #include <iostream>
+#include <string>
 
 namespace NAtracDEnc {
 namespace NAtrac3 {
@@ -274,7 +275,8 @@ struct TAtrac3EncoderSettings {
                            bool enableTemporalMasking = false,
                            uint32_t startFrame = 0,
                            uint32_t maxFrames = 0,
-                           std::ostream* decisionLog = nullptr)
+                           std::ostream* decisionLog = nullptr,
+                           const std::string& featureLogPath = std::string())
         : ConteinerParams(TAtrac3Data::GetContainerParamsForBitrate(bitrate))
         , NoGainControll(noGainControll)
         , NoTonalComponents(noTonalComponents)
@@ -295,6 +297,7 @@ struct TAtrac3EncoderSettings {
         , StartFrame(startFrame)
         , MaxFrames(maxFrames)
         , DecisionLog(decisionLog)
+        , FeatureLogPath(featureLogPath)
     { }
     const TContainerParams* ConteinerParams;
     const bool NoGainControll;
@@ -316,6 +319,7 @@ struct TAtrac3EncoderSettings {
     const uint32_t StartFrame;
     const uint32_t MaxFrames;
     std::ostream* DecisionLog; // nullable; frame decision log for parity analysis
+    const std::string FeatureLogPath;
 
     bool UseJointStereo() const {
         return ConteinerParams->Js || EnableStereoExp;

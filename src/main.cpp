@@ -143,6 +143,7 @@ enum EOptions
     O_GAIN_EXP2 = 20,
     O_SMR_ALLOC = 21,
     O_TEMPORAL_MASKING = 22,
+    O_FEATURE_LOG = 23,
 };
 
 static void CheckInputFormat(const TWav* p)
@@ -373,6 +374,7 @@ int main_(int argc, char* const* argv)
         { "gain-exp2", no_argument, NULL, O_GAIN_EXP2},
         { "smr-alloc", no_argument, NULL, O_SMR_ALLOC},
         { "temporal-masking", no_argument, NULL, O_TEMPORAL_MASKING},
+        { "feature-log", required_argument, NULL, O_FEATURE_LOG},
         { "start-frame", required_argument, NULL, O_START_FRAME},
         { "max-frames", required_argument, NULL, O_MAX_FRAMES},
         { NULL, 0, NULL, 0}
@@ -401,6 +403,7 @@ int main_(int argc, char* const* argv)
     uint32_t maxFrames = 0;
     string yamlLogFile;
     string decisionLogFile;
+    string featureLogPath;
     NAtrac1::TAtrac1EncodeSettings::EWindowMode windowMode = NAtrac1::TAtrac1EncodeSettings::EWindowMode::EWM_AUTO;
     uint32_t winMask = 0; //0 - all is long
     uint32_t bitrate = 0; //0 - use default for codec
@@ -513,6 +516,9 @@ int main_(int argc, char* const* argv)
             case O_TEMPORAL_MASKING:
                 enableTemporalMasking = true;
                 break;
+            case O_FEATURE_LOG:
+                featureLogPath = optarg;
+                break;
             case O_START_FRAME:
                 startFrame = (uint32_t)checkedStoi(optarg, 0, INT32_MAX, 0);
                 break;
@@ -601,7 +607,8 @@ int main_(int argc, char* const* argv)
                                                                 enableStabilityMode, enableStereoExp, enableStereoBalanceExp, enableGainExp, enableGainExp2,
                                                                 enableSmrAlloc,
                                                                 enableTemporalMasking,
-                                                                startFrame, maxFrames, decisionOut);
+                                                                startFrame, maxFrames, decisionOut,
+                                                                featureLogPath);
                 PrepareAtrac3Encoder(inFile, outFile, noStdOut, std::move(encoderSettings),
                 &totalSamples, wavIO, &pcmEngine, &atracProcessor);
                 pcmFrameSz = TAtrac3Data::NumSamples;;

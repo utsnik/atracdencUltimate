@@ -1128,10 +1128,16 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocation(const std::vector<TS
 {
     // Compute per-BFU SMR (Signal-to-Mask Ratio) for perceptual bit allocation.
     float smrPerBfu[TAtrac3Data::MaxBfus] = {};
+    float frameEnergy = 0.0f;
     if (EnableSmrAlloc) {
         float energyPerBfu[TAtrac3Data::MaxBfus] = {};
         for (size_t i = 0; i < bfuNum; ++i) {
             energyPerBfu[i] = scaledBlocks[i].MaxEnergy;
+        }
+        // Compute mean frame energy for quiet-frame protection.
+        if (EnableSmrAlloc) {
+            for (size_t i = 0; i < bfuNum; ++i) frameEnergy += energyPerBfu[i];
+            frameEnergy /= static_cast<float>(bfuNum);
         }
         ::NAtrac3::CalcSmr(energyPerBfu, smrPerBfu, static_cast<uint32_t>(bfuNum));
     }
@@ -1177,6 +1183,10 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocation(const std::vector<TS
                 if (i >= 8 && i < 26) {
                     x *= 0.96f;
                 }
+                // HF floor bias: boost top BFUs regardless of low absolute energy (sparse HF content like cymbals).
+                if (i >= 24) {
+                    x *= 0.93f;
+                }
                 x *= smrScale;
             }
             // Temporal masking: if current-frame energy rose sharply vs previous, allocate more bits now to prevent pre-echo.
@@ -1184,6 +1194,10 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocation(const std::vector<TS
             if (EnableTemporalMasking && attackSlope[i] > 2.5f) {
                 const float attackBoost = std::min(0.20f, 0.06f * std::log2(attackSlope[i]));
                 x *= (1.0f - attackBoost);
+            }
+            // Quiet-frame protection: in very quiet frames, boost allocation to preserve signal detail.
+            if (EnableSmrAlloc && frameEnergy < 0.001f && scaledBlocks[i].MaxEnergy >= ath) {
+                x *= 0.92f;
             }
             int tmp = spread * ( (float)scaledBlocks[i].ScaleFactorIndex / x) + (1.0 - spread) * fix - shift
                       + (int)std::lround(gainBoostPerBand[bfuBand] * gainScale);
@@ -1239,10 +1253,16 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocationLegacyV10(const std::
                                                                      const TParityFrameAnalysis* parity)
 {
     float smrPerBfu[TAtrac3Data::MaxBfus] = {};
+    float frameEnergy = 0.0f;
     if (EnableSmrAlloc) {
         float energyPerBfu[TAtrac3Data::MaxBfus] = {};
         for (size_t i = 0; i < bfuNum; ++i) {
             energyPerBfu[i] = scaledBlocks[i].MaxEnergy;
+        }
+        // Compute mean frame energy for quiet-frame protection.
+        if (EnableSmrAlloc) {
+            for (size_t i = 0; i < bfuNum; ++i) frameEnergy += energyPerBfu[i];
+            frameEnergy /= static_cast<float>(bfuNum);
         }
         ::NAtrac3::CalcSmr(energyPerBfu, smrPerBfu, static_cast<uint32_t>(bfuNum));
     }
@@ -1285,12 +1305,20 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocationLegacyV10(const std::
                 if (i >= 8 && i < 26) {
                     x *= 0.96f;
                 }
+                // HF floor bias: boost top BFUs regardless of low absolute energy (sparse HF content like cymbals).
+                if (i >= 24) {
+                    x *= 0.93f;
+                }
                 x *= smrScale;
             }
             // Temporal masking: if current-frame energy rose sharply vs previous, allocate more bits now to prevent pre-echo.
             if (EnableTemporalMasking && attackSlope[i] > 2.5f) {
                 const float attackBoost = std::min(0.20f, 0.06f * std::log2(attackSlope[i]));
                 x *= (1.0f - attackBoost);
+            }
+            // Quiet-frame protection: in very quiet frames, boost allocation to preserve signal detail.
+            if (EnableSmrAlloc && frameEnergy < 0.001f && scaledBlocks[i].MaxEnergy >= ath) {
+                x *= 0.92f;
             }
             int tmp = spread * ((float)scaledBlocks[i].ScaleFactorIndex / x)
                     + (1.0f - spread) * fix
