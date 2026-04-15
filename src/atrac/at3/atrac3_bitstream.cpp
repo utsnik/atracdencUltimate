@@ -1181,8 +1181,8 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocation(const std::vector<TS
             }
             // Temporal masking: if current-frame energy rose sharply vs previous, allocate more bits now to prevent pre-echo.
             // Reduce x (allocate more bits) proportionally to the attack slope, capped at 15%.
-            if (EnableTemporalMasking && attackSlope[i] > 4.0f) {
-                const float attackBoost = std::min(0.15f, 0.05f * std::log2(attackSlope[i]));
+            if (EnableTemporalMasking && attackSlope[i] > 2.5f) {
+                const float attackBoost = std::min(0.20f, 0.06f * std::log2(attackSlope[i]));
                 x *= (1.0f - attackBoost);
             }
             int tmp = spread * ( (float)scaledBlocks[i].ScaleFactorIndex / x) + (1.0 - spread) * fix - shift
@@ -1288,8 +1288,8 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocationLegacyV10(const std::
                 x *= smrScale;
             }
             // Temporal masking: if current-frame energy rose sharply vs previous, allocate more bits now to prevent pre-echo.
-            if (EnableTemporalMasking && attackSlope[i] > 4.0f) {
-                const float attackBoost = std::min(0.15f, 0.05f * std::log2(attackSlope[i]));
+            if (EnableTemporalMasking && attackSlope[i] > 2.5f) {
+                const float attackBoost = std::min(0.20f, 0.06f * std::log2(attackSlope[i]));
                 x *= (1.0f - attackBoost);
             }
             int tmp = spread * ((float)scaledBlocks[i].ScaleFactorIndex / x)
