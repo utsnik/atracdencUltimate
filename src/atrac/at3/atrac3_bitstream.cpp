@@ -353,6 +353,10 @@ static inline bool CheckBfus(uint16_t* numBfu, const vector<uint32_t>& precision
         *numBfu = curLastBfu;
         return true;
     }
+    if (curLastBfu >= 20 && precisionPerEachBlocks[curLastBfu] <= 2) {
+        *numBfu = curLastBfu;
+        return true;
+    }
     return false;
 }
 
