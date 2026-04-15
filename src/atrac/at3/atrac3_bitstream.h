@@ -148,6 +148,7 @@ private:
     std::vector<uint32_t> CalcBitsAllocationLegacyV10(const std::vector<TScaledBlock>& scaledBlocks,
                                                       uint32_t bfuNum, float spread, float shift, float loudness,
                                                       const int gainBoostPerBand[TAtrac3Data::NumQMF],
+                                                      const TMlHints& hints,
                                                       const TParityFrameAnalysis* parity = nullptr);
 
     std::pair<uint8_t, std::vector<uint32_t>> CreateAllocation(const TSingleChannelElement& sce,

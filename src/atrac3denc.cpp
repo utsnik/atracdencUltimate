@@ -19,6 +19,7 @@
 #include "atrac3denc.h"
 #include "transient_detector.h"
 #include "atrac/atrac_psy_common.h"
+#include "atrac/at3/atrac3_ml_weights.h"
 #include <assert.h>
 #include <algorithm>
 #include <fstream>
@@ -93,14 +94,41 @@ static TAtrac3BitStreamWriter::TMlHints PredictMlHints(const TMlFrameFeatures& f
     if (!enableMlHints) {
         return h;
     }
-
-    // Placeholder policy until a trained model is integrated:
-    // map stable perceptual indicators into bounded decision hints.
+    using namespace NATRAC3ML;
+    // Normalize inputs
+    float x[7] = {
+        f.BandEnergy[0], f.BandEnergy[1], f.BandEnergy[2], f.BandEnergy[3],
+        f.TransientScore, f.AvgFlatness, f.HfRatio
+    };
+    for (int i = 0; i < 7; ++i) {
+        x[i] = (x[i] - kMlScalerMean[i]) / (kMlScalerStd[i] + 1e-8f);
+    }
+    // Layer 1: 7->32, ReLU
+    float h1[32] = {};
+    for (int o = 0; o < 32; ++o) {
+        float s = kMlB1[o];
+        for (int i = 0; i < 7; ++i) s += kMlW1[o * 7 + i] * x[i];
+        h1[o] = s > 0.0f ? s : 0.0f;
+    }
+    // Layer 2: 32->16, ReLU
+    float h2[16] = {};
+    for (int o = 0; o < 16; ++o) {
+        float s = kMlB2[o];
+        for (int i = 0; i < 32; ++i) s += kMlW2[o * 32 + i] * h1[i];
+        h2[o] = s > 0.0f ? s : 0.0f;
+    }
+    // Layer 3: 16->4, tanh
+    float out[4] = {};
+    for (int o = 0; o < 4; ++o) {
+        float s = kMlB3[o];
+        for (int i = 0; i < 16; ++i) s += kMlW3[o * 16 + i] * h2[i];
+        out[o] = std::tanh(s);
+    }
     h.Confidence = 0.75f;
-    h.HfNoiseBias = std::max(-1.0f, std::min(1.0f, (f.HfRatio - 0.24f) * 4.0f));
-    h.GainBias = std::max(-1.0f, std::min(1.0f, (f.TransientScore - 4.5f) * 0.22f));
-    h.TonalBias = std::max(-1.0f, std::min(1.0f, (0.50f - f.AvgFlatness) * 2.0f));
-    h.BfuBudgetBias = std::max(-1.0f, std::min(1.0f, 0.55f * h.HfNoiseBias + 0.25f * h.GainBias));
+    h.BfuBudgetBias = out[0];
+    h.TonalBias     = out[1];
+    h.GainBias      = out[2];
+    h.HfNoiseBias   = out[3];
     return h;
 }
 

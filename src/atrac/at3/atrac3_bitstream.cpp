@@ -847,7 +847,7 @@ std::pair<uint8_t, vector<uint32_t>> TAtrac3BitStreamWriter::CreateAllocationLeg
         for (;;) {
             const double shift = (maxShift + minShift) / 2.0;
             vector<uint32_t> tmpAlloc = CalcBitsAllocationLegacyV10(scaledBlocks, numBfu, spread, (float)shift,
-                                                                    laudness, gainBoostPerBand, parity);
+                                                                    laudness, gainBoostPerBand, sce.MlHints, parity);
             energyErr.assign(numBfu, 1.0f);
             std::pair<uint8_t, uint32_t> consumption;
             do {
@@ -1250,6 +1250,7 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocationLegacyV10(const std::
                                                                      const float shift,
                                                                      const float loudness,
                                                                      const int gainBoostPerBand[TAtrac3Data::NumQMF],
+                                                                     const TMlHints& hints,
                                                                      const TParityFrameAnalysis* parity)
 {
     float smrPerBfu[TAtrac3Data::MaxBfus] = {};
@@ -1326,6 +1327,12 @@ vector<uint32_t> TAtrac3BitStreamWriter::CalcBitsAllocationLegacyV10(const std::
                     + gainBoostPerBand[bfuBand];
             if (Params.Bitrate <= 132300 && i >= 20 && scaledBlocks[i].MaxEnergy > ath * 2.5f) {
                 tmp += 1;
+            }
+            if (hints.Confidence >= 0.5f) {
+                const int h = (int)std::lround(std::max(-1.5f, std::min(1.5f, hints.HfNoiseBias * 1.5f)));
+                if (i >= 20) {
+                    tmp += h;
+                }
             }
             if (parity && Params.Bitrate <= 132300) {
                 const auto& pb = parity->Bands[bfuBand];
