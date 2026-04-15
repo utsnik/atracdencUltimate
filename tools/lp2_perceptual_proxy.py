@@ -164,6 +164,8 @@ def main() -> None:
     ap.add_argument("--seconds", type=float, default=30.0)
     ap.add_argument("--max-lag", type=int, default=120)
     ap.add_argument("--lag", type=int, default=None)
+    ap.add_argument("--lag-base", type=int, default=None)
+    ap.add_argument("--lag-cand", type=int, default=None)
     ap.add_argument("--label-base", default="base")
     ap.add_argument("--label-cand", default="cand")
     args = ap.parse_args()
@@ -179,12 +181,19 @@ def main() -> None:
     base = mid_channel(base_ch)
     cand = mid_channel(cand_ch)
 
-    if args.lag is None:
-        lag_b = best_lag(ref, base, args.max_lag)
-        lag_c = best_lag(ref, cand, args.max_lag)
-    else:
+    if args.lag_base is not None:
+        lag_b = args.lag_base
+    elif args.lag is not None:
         lag_b = args.lag
+    else:
+        lag_b = best_lag(ref, base, args.max_lag)
+
+    if args.lag_cand is not None:
+        lag_c = args.lag_cand
+    elif args.lag is not None:
         lag_c = args.lag
+    else:
+        lag_c = best_lag(ref, cand, args.max_lag)
 
     rb, bb = align(ref, base, lag_b)
     rc, cc = align(ref, cand, lag_c)
